@@ -30,6 +30,7 @@
   --electric:#0A6CF2; /* Amex Blue, turned up */
   --royal:#2456B7;    /* brush-letter blue */
   --sky:#7EAEE3;
+  --sky-mid:#1D8ECE; /* Amex Sky Mid */
   --paper:#F0EFEE;    /* dry-brush paper */
   --white:#FFFFFF;
   --f-brush:"Knewave","Impact","Arial Black",sans-serif;
@@ -176,14 +177,15 @@ a{color:inherit}
 .teams{position:relative;padding-block:clamp(70px,9vw,130px) clamp(70px,8vw,120px)}
 .teams .dots{--dot:rgba(36,86,183,.28);--dm:linear-gradient(330deg,#000 0%,transparent 40%)}
 .teams .script{color:var(--electric)}
-.deck{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(18px,3vw,44px);margin-top:clamp(40px,6vw,80px)}
+.deck{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(16px,2.2vw,32px);margin-top:clamp(40px,6vw,80px)}
 .tcard{position:relative;min-width:0}
-.tcard:nth-child(1){z-index:1}.tcard:nth-child(2){z-index:2}.tcard:nth-child(3){z-index:3}
+.tcard:nth-child(1){z-index:1}.tcard:nth-child(2){z-index:2}.tcard:nth-child(3){z-index:3}.tcard:nth-child(4){z-index:4}
 .tcard__deal{position:relative}
 .tcard__face{position:relative;container-type:inline-size;aspect-ratio:5/6.6;overflow:hidden;border:4px solid var(--navy);border-radius:6px;box-shadow:10px 10px 0 var(--navy);color:var(--white);will-change:transform}
 .tcard--a .tcard__face{background:var(--electric)}
 .tcard--b .tcard__face{background:var(--navy)}
 .tcard--c .tcard__face{background:var(--royal)}
+.tcard--d .tcard__face{background:var(--sky-mid)}
 .tcard__face .speed{--sx:50%;--sy:42%;--line:rgba(255,255,255,.14)}
 .tcard__face .dots{--dot:rgba(255,255,255,.22);--dm:linear-gradient(200deg,#000,transparent 50%)}
 .tcard__burst{position:absolute;left:50%;top:40%;width:92%;max-width:none;transform:translate(-50%,-50%) rotate(8deg);fill:rgba(255,255,255,.12);stroke:rgba(255,255,255,.55);stroke-width:3}
@@ -191,7 +193,7 @@ a{color:inherit}
 .tcard__team{position:absolute;left:7%;top:6%;font-weight:900;font-stretch:118%;font-size:clamp(13px,1.2vw,15px);letter-spacing:.14em;text-transform:uppercase}
 .tcard__band{position:absolute;left:-2%;right:-2%;bottom:9%;padding:12px 7% 14px;background:var(--paper);color:var(--navy);transform:rotate(-4deg);box-shadow:0 6px 0 rgba(1,19,57,.35)}
 .tcard__role{font-weight:900;font-stretch:112%;font-size:13px;letter-spacing:.16em;text-transform:uppercase;color:var(--electric)}
-.tcard__name{font-family:var(--f-brush);font-size:clamp(34px,3.5vw,48px);line-height:.95;text-transform:uppercase;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tcard__name{font-family:var(--f-brush);font-size:clamp(30px,2.9vw,42px);line-height:.95;text-transform:uppercase;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .tcard__arm{position:absolute;right:7%;top:5%;width:clamp(40px,3.6vw,50px);aspect-ratio:1;display:grid;place-items:center;border-radius:50%;background:var(--paper);color:var(--navy);font-family:var(--f-brush);font-size:clamp(22px,2vw,28px);box-shadow:3px 3px 0 var(--navy)}
 .squad{margin-top:26px;padding-top:12px;border-top:3px solid var(--navy)}
 .squad__k{font-weight:900;font-stretch:85%;font-size:15px;letter-spacing:.06em;text-transform:uppercase}
@@ -443,6 +445,16 @@ a{color:inherit}
         </div></div>
         <div class="squad"><p class="squad__k">Squad</p><ul class="squad__list"><li class="squad__tba">Squad list coming soon</li></ul></div>
       </article>
+      <article class="tcard tcard--d" aria-label="Team D, captain Akanksha">
+        <div class="tcard__deal"><div class="tcard__face">
+          <div class="fx" aria-hidden="true"><div class="speed"></div><div class="dots"></div></div>
+          <svg class="tcard__burst" viewBox="0 0 400 400" aria-hidden="true"><path d="M306.8 193.2 L377.7 211.3 L325.8 223.1 L400.9 287 L289.3 265.8 L349.6 315.7 L294 292.7 L299.1 330.4 L237.1 301.7 L246.7 404.5 L224.3 327.4 L194.8 404.3 L171.3 320.4 L160.8 390.5 L156.3 295.4 L110.6 361 L118.4 276.4 L47.8 313.6 L84.7 259 L2.1 287 L88.7 232.5 L8.5 230.9 L96.9 208.4 L-9.6 178.2 L82.5 179 L48.1 126 L108.5 142.1 L25.2 58 L125.6 117.7 L84 41.2 L146.3 92.6 L159.7 32.6 L195 90.7 L187.9 48.7 L223.1 89.7 L250.3 42.2 L242.8 83 L280.2 72.8 L296.3 108.1 L366.1 80.6 L298.3 119.4 L398.5 99 L322.5 161.1 L395.4 189.4 Z"/></svg>
+          <span class="tcard__letter" aria-hidden="true">D</span>
+          <p class="tcard__team">Team D</p><span class="tcard__arm" aria-hidden="true">C</span>
+          <div class="tcard__band"><p class="tcard__role">Captain</p><p class="tcard__name">Akanksha</p></div>
+        </div></div>
+        <div class="squad"><p class="squad__k">Squad</p><ul class="squad__list"><li class="squad__tba">Squad list coming soon</li></ul></div>
+      </article>
     </div>
   </div>
 </section>
@@ -621,10 +633,10 @@ a{color:inherit}
     /* 5. Captains: a fanned hand of cards deals out */
     const cards = $$(".tcard__deal");
     if (wide) {
-      gsap.timeline({ scrollTrigger: { trigger: ".deck", start: "top 90%", end: "top 25%", scrub: .6 } })
-        .fromTo(cards[0], { xPercent: 70, rotate: -14, y: 40 }, { xPercent: 0, rotate: -4, y: 0, ease: "power2.out" }, 0)
-        .fromTo(cards[1], { y: 60 }, { y: -16, rotate: 1, ease: "power2.out" }, 0)
-        .fromTo(cards[2], { xPercent: -70, rotate: 14, y: 40 }, { xPercent: 0, rotate: 4, y: 0, ease: "power2.out" }, 0);
+      const deck = gsap.timeline({ scrollTrigger: { trigger: ".deck", start: "top 90%", end: "top 25%", scrub: .6 } });
+      const mid = (cards.length - 1) / 2;
+      cards.forEach((c, i) => { const k = i - mid;
+        deck.fromTo(c, { xPercent: -k * 72, rotate: k * 9, y: 40 + Math.abs(k) * 10 }, { xPercent: 0, rotate: k * 2.6, y: Math.abs(k) * 8 - 12, ease: "power2.out" }, 0); });
     } else {
       cards.forEach((c, i) => gsap.fromTo(c, { x: i % 2 ? 50 : -50, rotate: i % 2 ? 8 : -8 }, { x: 0, rotate: i % 2 ? 2 : -2, ease: "power2.out", scrollTrigger: { trigger: c, start: "top 96%", end: "top 50%", scrub: .5 } }));
     }
