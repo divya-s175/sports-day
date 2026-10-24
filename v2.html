@@ -17,15 +17,12 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=Kaushan+Script&family=Knewave&display=swap">
-   
-/* NEW BACKGROUND: soft blue gradients, no speed lines */
 
-/* Remove the diagonal comic-book rays */
+/* Background: soft blue gradients, no diagonal rays */
 .speed {
   display: none !important;
 }
 
-/* Main dark sections: subtle atmospheric blue glow */
 .hero,
 .night,
 .strike,
@@ -43,7 +40,6 @@
     );
 }
 
-/* Sports section: softer blue depth */
 .games {
   background-image:
     radial-gradient(
@@ -58,14 +54,26 @@
     );
 }
 
-/* Keep the subtle halftone texture */
 .dots {
   opacity: 0.45;
 }
 
-/* Make the grain texture less prominent */
 .grain {
   opacity: 0.22;
+}
+
+/* Heading: bold, condensed athletic font */
+.hero__title {
+  font-family: var(--f-sans);
+  font-size: clamp(46px, 6.6vw, 82px);
+  font-weight: 900;
+  font-stretch: 70%;
+  font-variation-settings: "wdth" 70;
+  line-height: 0.92;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+  color: var(--white);
+  text-shadow: 0.04em 0.04em 0 var(--electric);
 }
 
 <style>
