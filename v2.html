@@ -1389,22 +1389,46 @@ intro.from(".poster", {
   let lastCard = null;
   let previousOverflow = "";
 
-  function openRules(card) {
-    lastCard = card;
+  
+function openRules(card) {
+  lastCard = card;
 
-    const game = card.querySelector("h3")?.textContent.trim()
-      || "Game";
+  const game =
+    card.querySelector("h3")?.textContent.trim() || "Game";
 
-    title.textContent = game + " Rules";
+  title.textContent = game + " Rules";
+
+  const note = overlay.querySelector(".game-rules-note");
+
+  if (game.toLowerCase() === "bowling") {
+    message.textContent = [
+      "• Each team has 4 players.",
+      "",
+      "• Two teams compete in the final.",
+      "",
+      "• The losing teams play for 3rd place.",
+      "",
+      "• The team with the highest score wins."
+    ].join("\n");
+
+    note.textContent = "Good luck, teams!";
+  } else {
     message.textContent =
       "The official " + game +
       " rules will appear here once they have been confirmed.";
 
-    previousOverflow = document.body.style.overflow;
-    overlay.hidden = false;
-    document.body.style.overflow = "hidden";
-    closeButton.focus();
+    note.textContent =
+      "The confirmed rules will be shared here.";
   }
+
+  message.style.whiteSpace = "pre-line";
+
+  previousOverflow = document.body.style.overflow;
+  overlay.hidden = false;
+  document.body.style.overflow = "hidden";
+  closeButton.focus();
+}
+
 
   function closeRules() {
     overlay.hidden = true;
