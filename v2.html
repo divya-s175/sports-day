@@ -378,7 +378,138 @@ a{color:inherit}
   text-shadow: 0.04em 0.04em 0 var(--electric);
 }
 </style>
-   <link href="https://fonts.googleapis.com/css2?family=Modak&display=swap" rel="stylesheet">   
+<link href="https://fonts.googleapis.com/css2?family=Modak&display=swap" rel="stylesheet">
+<style>
+/* =========================================
+   SPORTS DAY — BLUE + CORAL THEME
+   ========================================= */
+
+:root {
+  --deep:     #071B3A;  /* Midnight navy */
+  --abyss:    #041328;  /* Deep navy */
+  --navy:     #071B3A;  /* Main dark text */
+  --navy-2:   #246BCE;  /* Cobalt blue */
+  --electric: #246BCE;  /* Main blue accent */
+  --royal:    #FF796F;  /* Coral accent */
+  --sky:      #BDE8FF;  /* Ice blue */
+  --sky-mid:  #246BCE;
+  --paper:    #F5F7FA;  /* Pale background */
+  --white:    #FFFFFF;
+}
+
+/* FIX: Use Modak on the actual Sports Day title.
+   Flex gap creates a reliable space between the two words. */
+
+.poster__title {
+  display: flex;
+  align-items: baseline;
+  gap: 0.18em;
+  font-family: "Modak", cursive !important;
+  font-weight: 400;
+  letter-spacing: 0;
+  color: var(--royal);
+  text-shadow: 0.045em 0.045em 0 var(--navy);
+}
+
+.poster__title .w {
+  display: inline-flex;
+  white-space: nowrap;
+  gap: 0;
+}
+
+.poster__title .ch {
+  display: inline-block;
+}
+
+/* Dark sections: subtle blue and coral glow, no diagonal rays */
+
+.hero,
+.night,
+.signoff {
+  background:
+    radial-gradient(
+      ellipse at 85% 10%,
+      rgba(36, 107, 206, 0.24),
+      transparent 42%
+    ),
+    radial-gradient(
+      ellipse at 12% 82%,
+      rgba(255, 121, 111, 0.12),
+      transparent 38%
+    ),
+    var(--deep);
+}
+
+.strike {
+  background:
+    radial-gradient(
+      ellipse at 80% 15%,
+      rgba(36, 107, 206, 0.2),
+      transparent 42%
+    ),
+    var(--abyss);
+}
+
+/* Sports Arena: strong cobalt blue */
+
+.games.electric {
+  background: linear-gradient(
+    135deg,
+    #246BCE 0%,
+    #1856B3 100%
+  );
+}
+
+/* Reduce the old comic-book effects so the palette feels cleaner */
+
+.speed {
+  display: none !important;
+}
+
+.dots {
+  opacity: 0.28;
+}
+
+.grain {
+  opacity: 0.18;
+}
+
+/* Coral highlights */
+
+.rule--hot .rbadge svg {
+  fill: var(--royal);
+  filter: drop-shadow(6px 6px 0 var(--paper));
+}
+
+.rule--hot .rbadge span {
+  color: var(--navy);
+}
+
+.tcard--c .tcard__face {
+  background: var(--royal);
+  color: var(--navy);
+}
+
+.marquee__track span i {
+  color: var(--royal);
+}
+
+/* Keep pale sections crisp and readable */
+
+.paper {
+  background: var(--paper);
+  color: var(--navy);
+}
+
+.panel:last-child {
+  background: var(--royal);
+  color: var(--navy);
+}
+
+.panel:last-child p {
+  color: var(--navy);
+}
+</style>
 </head>
 <body>
 <div class="progress" aria-hidden="true"><div class="progress__bar"></div></div>
