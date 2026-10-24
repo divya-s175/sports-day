@@ -509,6 +509,67 @@ a{color:inherit}
 .panel:last-child p {
   color: var(--navy);
 }
+/* CORAL-FORWARD PALETTE: reduce the blue */
+
+:root {
+  --deep: #171D2B;
+  --abyss: #101521;
+  --navy: #1B2433;
+  --navy-2: #39465C;
+  --electric: #FF796F;
+  --royal: #F25D55;
+  --sky: #FFD8D3;
+  --sky-mid: #F25D55;
+  --paper: #FFF7F3;
+}
+
+/* Replace the large blue Sports Arena backgrounds
+   with a warm, pale background */
+
+.games.electric {
+  background: #FFF7F3 !important;
+  color: #1B2433 !important;
+}
+
+/* Make section headings dark with coral highlights */
+
+.games.electric .h-brush.light {
+  color: #1B2433 !important;
+  text-shadow: 0.05em 0.05em 0 #FF796F !important;
+}
+
+.games.electric .sport h3 {
+  color: #1B2433 !important;
+  text-shadow: 0.06em 0.06em 0 #FF796F !important;
+}
+
+.games.electric .sport p {
+  color: rgba(27, 36, 51, 0.84) !important;
+}
+
+/* Coral outlines on the sports icons */
+
+.games.electric .sport__badge .bb {
+  stroke: #FF796F !important;
+}
+
+.games.electric .icon .fill-ball {
+  fill: #FF796F !important;
+}
+
+/* Fix the Connect. Compete. Celebrate. tagline */
+
+.games.electric p[style*="color:white"] {
+  color: #1B2433 !important;
+}
+
+/* Replace blue decorative dots with subtle coral ones */
+
+.games .dots,
+.play .dots,
+.teams .dots {
+  --dot: rgba(255, 121, 111, 0.20) !important;
+}
 </style>
 </head>
 <body>
