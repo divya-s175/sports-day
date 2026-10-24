@@ -92,7 +92,7 @@ a{color:inherit}
 .poster{position:relative;width:min(100%,600px,calc(88svh * 0.742));aspect-ratio:1024/1380;container-type:inline-size;justify-self:end}
 .poster__art{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;-webkit-mask-image:linear-gradient(to bottom,#000 80%,transparent 99%);mask-image:linear-gradient(to bottom,#000 80%,transparent 99%)}
 @media (min-width:900px){.poster__art{-webkit-mask-image:linear-gradient(to bottom,#000 80%,transparent 99%),linear-gradient(to right,transparent 0,#000 7%,#000 95%,transparent 100%),linear-gradient(to bottom,transparent 4%,#000 7%,#000 33%,transparent 38%);-webkit-mask-composite:source-in,source-over;mask-image:linear-gradient(to bottom,#000 80%,transparent 99%),linear-gradient(to right,transparent 0,#000 7%,#000 95%,transparent 100%),linear-gradient(to bottom,transparent 4%,#000 7%,#000 33%,transparent 38%);mask-composite:intersect,add}}
-.poster__patch{position:absolute;inset:0;color:var(--navy);pointer-events:none}
+/*.poster__patch{position:absolute;inset:0;color:var(--navy);pointer-events:none}
 .poster__patch > *{position:absolute;white-space:nowrap;transform-origin:0 100%;line-height:1}
 .poster__team{left:9.4%;top:9.4%;font-weight:800;font-size:7.4cqw;letter-spacing:-.012em;rotate:-9.4deg}
 .poster__title{left:5.2%;top:16.6%;font-family:var(--f-brush);font-weight:400;font-size:12.2cqw;color:#1D5BDA;text-transform:uppercase;rotate:-9.8deg;scale:.86 1;transform-origin:0 100%}
@@ -102,7 +102,43 @@ a{color:inherit}
 .poster__pillars span{color:var(--navy);padding-inline:.5em}
 .hero__info{position:relative;max-width:520px}
 .datebig{font-family:var(--f-brush);font-size:clamp(64px,9vw,132px);line-height:.86;text-transform:uppercase;color:var(--white);text-shadow:.05em .05em 0 var(--electric)}
-.datebig small{display:block;font-size:.42em;color:var(--sky);text-shadow:none;letter-spacing:.02em}
+.datebig small{display:block;font-size:.42em;color:var(--sky);text-shadow:none;letter-spacing:.02em} */
+
+.hero__info {
+  position: relative;
+  max-width: 520px;
+}
+
+.hero__title {
+  margin: 0;
+  font-family: var(--f-brush);
+  font-size: clamp(42px, 6.6vw, 82px);
+  line-height: 0.98;
+  text-transform: uppercase;
+  color: var(--white);
+  text-shadow: 0.05em 0.05em 0 var(--electric);
+}
+
+.hero__title span {
+  display: block;
+  color: var(--sky);
+}
+
+.hero__tagline {
+  margin: 16px 0 0;
+  color: var(--white);
+  font-family: var(--f-sans);
+  font-size: clamp(16px, 1.8vw, 22px);
+  font-weight: 800;
+  letter-spacing: 0.025em;
+  line-height: 1.4;
+}
+
+.hero__tagline span {
+  color: var(--sky);
+  padding-inline: 0.25em;
+}
+
 .info{list-style:none;margin:clamp(22px,3vw,36px) 0 0;padding:0;display:grid;gap:18px}
 .info li{display:grid;grid-template-columns:44px minmax(0,1fr);gap:14px;align-items:start;padding-top:16px;border-top:2px solid rgba(126,174,227,.25)}
 .info svg{width:36px;height:36px;color:var(--white)}
@@ -291,16 +327,16 @@ a{color:inherit}
   <div class="fx" aria-hidden="true"><div class="speed"></div><div class="dots"></div><div class="grain"></div></div>
   <div class="wrap hero__grid">
     <div class="poster">
-      <img class="poster__art" src="hero.webp" srcset="hero-sm.webp 512w, hero.webp 1024w" sizes="(max-width: 899px) 100vw, 600px" width="1024" height="1380" alt="Comic-style illustration: a badminton player leaps for a smash over the net while a teammate looks on" fetchpriority="high">
-      <div class="poster__patch">
-          <p class="poster__team">AMEX</p>
-          <h1 class="poster__title" aria-label="Sports Day"><span class="w" aria-hidden="true"><span class="ch">S</span><span class="ch">P</span><span class="ch">O</span><span class="ch">R</span><span class="ch">T</span><span class="ch">S</span></span> <span class="w" aria-hidden="true"><span class="ch">D</span><span class="ch">A</span><span class="ch">Y</span></span></h1>
-          <p class="poster__pillars">Connect<span aria-hidden="true">|</span>Compete<span aria-hidden="true">|</span>Celebrate</p>
-      </div>
     </div>
 
     <div class="hero__info">
-      <p class="datebig">30 Oct<small>Friday</small></p>
+      <h1 class="hero__title">Sports Day <span>Offsite</span></h1>
+
+<p class="hero__tagline">
+  Connect <span aria-hidden="true">|</span>
+  Compete <span aria-hidden="true">|</span>
+  Celebrate
+</p>
       <ul class="info">
         <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg><div><b>Date &amp; time</b><span>Friday 30th October, 10 AM to 3 PM</span></div></li>
         <li>
@@ -568,17 +604,58 @@ const EVENT = {
     const offs = [];
 
     /* 1. Hero: the brush slaps on, the title punches in */
-    const intro = gsap.timeline({ defaults: { ease: "power3.out" } });
-    gsap.set(".pow", { xPercent: -50, yPercent: -50 });
-    intro.from(".poster", { scale: 1.05, autoAlpha: 0, duration: 1.0 }, 0)
-      .from(".hero .speed", { rotate: -12, autoAlpha: 0, duration: 1.4 }, 0)
-      .from(".poster__team", { x: -30, autoAlpha: 0, duration: .5 }, .75)
-      .from(".poster__title .ch", { yPercent: -120, rotate: () => gsap.utils.random(-25, 25), autoAlpha: 0, duration: .7, stagger: .05, ease: "back.out(2.2)" }, .8)
-      .from(".poster__pillars", { autoAlpha: 0, y: 10, duration: .5 }, 1.2)
-      .from(".datebig", { scale: 1.6, rotate: -8, autoAlpha: 0, duration: .7, ease: "back.out(2)" }, .9)
-      .from(".info li", { x: 30, autoAlpha: 0, duration: .5, stagger: .08 }, 1.1)
-      .from(".kick", { scale: .6, rotate: 6, autoAlpha: 0, duration: .6, ease: "back.out(2.4)" }, 1.35)
-      .from(".hero__cta .btn", { y: 16, autoAlpha: 0, duration: .5, stagger: .08 }, 1.5);
+
+const intro = gsap.timeline({
+  defaults: { ease: "power3.out" }
+});
+
+gsap.set(".pow", {
+  xPercent: -50,
+  yPercent: -50
+});
+
+intro.from(".poster", {
+    scale: 1.05,
+    autoAlpha: 0,
+    duration: 1.0
+  }, 0)
+  .from(".hero .speed", {
+    rotate: -12,
+    autoAlpha: 0,
+    duration: 1.4
+  }, 0)
+  .from(".hero__title", {
+    scale: 1.15,
+    rotate: -4,
+    autoAlpha: 0,
+    duration: 0.7,
+    ease: "back.out(2)"
+  }, 0.8)
+  .from(".hero__tagline", {
+    y: 10,
+    autoAlpha: 0,
+    duration: 0.5
+  }, 1.05)
+  .from(".info li", {
+    x: 30,
+    autoAlpha: 0,
+    duration: 0.5,
+    stagger: 0.08
+  }, 1.1)
+  .from(".kick", {
+    scale: 0.6,
+    rotate: 6,
+    autoAlpha: 0,
+    duration: 0.6,
+    ease: "back.out(2.4)"
+  }, 1.35)
+  .from(".hero__cta .btn", {
+    y: 16,
+    autoAlpha: 0,
+    duration: 0.5,
+    stagger: 0.08
+  }, 1.5);
+
 
     gsap.timeline({ scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: .5 } })
       .to(".poster", { yPercent: 6, ease: "none" }, 0)
