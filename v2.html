@@ -1233,5 +1233,218 @@ intro.from(".poster", {
 })();
 </script>
 
+<style>
+/* Clickable game cards */
+.games[aria-labelledby="games-h"] .sport {
+  cursor: pointer;
+  border-radius: 8px;
+}
+
+.games[aria-labelledby="games-h"] .sport:focus-visible {
+  outline: 3px solid #FF796F;
+  outline-offset: 6px;
+}
+
+.games[aria-labelledby="games-h"] .sport h3::after {
+  content: "TAP FOR RULES";
+  display: block;
+  margin-top: 9px;
+  font: 700 10px/1.4 "Archivo", sans-serif;
+  letter-spacing: .12em;
+  color: #F25D55;
+  text-shadow: none;
+}
+
+/* Rules popup */
+.game-rules-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  background: rgba(8, 15, 30, .78);
+  backdrop-filter: blur(5px);
+}
+
+.game-rules-overlay[hidden] {
+  display: none !important;
+}
+
+.game-rules-modal {
+  width: min(100%, 520px);
+  max-height: 85vh;
+  overflow-y: auto;
+  padding: clamp(22px, 5vw, 34px);
+  background: #FFF7F3;
+  color: #171D2B;
+  border: 3px solid #171D2B;
+  border-radius: 10px;
+  box-shadow: 9px 9px 0 #FF796F;
+}
+
+.game-rules-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.game-rules-kicker {
+  margin: 0 0 8px;
+  color: #F25D55;
+  font: 800 11px/1.4 "Archivo", sans-serif;
+  letter-spacing: .16em;
+}
+
+.game-rules-title {
+  margin: 0;
+  font: 400 clamp(28px, 6vw, 42px)/1.05
+    "Knewave", "Impact", sans-serif;
+}
+
+.game-rules-close {
+  flex: 0 0 40px;
+  width: 40px;
+  height: 40px;
+  border: 2px solid #171D2B;
+  border-radius: 6px;
+  background: #FF796F;
+  color: #171D2B;
+  font: 700 26px/1 Arial, sans-serif;
+  cursor: pointer;
+}
+
+.game-rules-divider {
+  height: 4px;
+  margin: 22px 0;
+  background: #FF796F;
+  border: 0;
+}
+
+.game-rules-message {
+  margin: 0;
+  font: 500 16px/1.7 "Archivo", sans-serif;
+}
+
+.game-rules-note {
+  margin: 16px 0 0;
+  color: #606979;
+  font: 500 13px/1.6 "Archivo", sans-serif;
+}
+</style>
+
+<script>
+(() => {
+  const section = document.querySelector(
+    '.games[aria-labelledby="games-h"]'
+  );
+
+  if (!section) return;
+
+  const cards = [...section.querySelectorAll(".sport")];
+  if (!cards.length) return;
+
+  /* Build the popup once */
+  const overlay = document.createElement("div");
+  overlay.className = "game-rules-overlay";
+  overlay.hidden = true;
+
+  overlay.innerHTML = `
+    <section class="game-rules-modal"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="game-rules-title"
+      aria-describedby="game-rules-message">
+
+      <div class="game-rules-header">
+        <div>
+          <p class="game-rules-kicker">GAME GUIDE</p>
+          <h2 class="game-rules-title"
+            id="game-rules-title">Game Rules</h2>
+        </div>
+
+        <button class="game-rules-close"
+          type="button"
+          aria-label="Close game rules">×</button>
+      </div>
+
+      <hr class="game-rules-divider">
+
+      <p class="game-rules-message"
+        id="game-rules-message"></p>
+
+      <p class="game-rules-note">
+        The confirmed rules will be shared here.
+      </p>
+    </section>
+  `;
+
+  document.body.appendChild(overlay);
+
+  const title = overlay.querySelector("#game-rules-title");
+  const message = overlay.querySelector("#game-rules-message");
+  const closeButton = overlay.querySelector(".game-rules-close");
+
+  let lastCard = null;
+  let previousOverflow = "";
+
+  function openRules(card) {
+    lastCard = card;
+
+    const game = card.querySelector("h3")?.textContent.trim()
+      || "Game";
+
+    title.textContent = game + " Rules";
+    message.textContent =
+      "The official " + game +
+      " rules will appear here once they have been confirmed.";
+
+    previousOverflow = document.body.style.overflow;
+    overlay.hidden = false;
+    document.body.style.overflow = "hidden";
+    closeButton.focus();
+  }
+
+  function closeRules() {
+    overlay.hidden = true;
+    document.body.style.overflow = previousOverflow;
+
+    if (lastCard) lastCard.focus();
+  }
+
+  cards.forEach(card => {
+    const game = card.querySelector("h3")?.textContent.trim()
+      || "Game";
+
+    card.tabIndex = 0;
+    card.setAttribute("role", "button");
+    card.setAttribute("aria-haspopup", "dialog");
+    card.setAttribute("aria-label", "View rules for " + game);
+
+    card.addEventListener("click", () => openRules(card));
+
+    card.addEventListener("keydown", event => {
+      if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
+        openRules(card);
+      }
+    });
+  });
+
+  closeButton.addEventListener("click", closeRules);
+
+  overlay.addEventListener("click", event => {
+    if (event.target === overlay) closeRules();
+  });
+
+  document.addEventListener("keydown", event => {
+    if (!overlay.hidden && event.key === "Escape") {
+      closeRules();
+    }
+  });
+})();
+</script>
+
 </body>
 </html>
