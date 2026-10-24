@@ -1117,5 +1117,171 @@ intro.from(".poster", {
   window.addEventListener("load", () => ScrollTrigger.refresh());
 })();
 </script>
+   
+<script>
+/* SPORTS DAY: refreshed game icons */
+
+(() => {
+  const icons = [
+    /* 1. Football */
+    `
+      <circle class="draw" pathLength="1" cx="32" cy="32" r="23"/>
+      <polygon class="draw accent" pathLength="1"
+        points="32,19 43,27 39,40 25,40 21,27"/>
+      <path class="draw" pathLength="1"
+        d="M32 19V9 M21 27L10 23 M25 40L19 50
+           M39 40L45 50 M43 27L54 23
+           M10 23L13 41L19 50
+           M54 23L51 41L45 50"/>
+      <path class="draw accent" pathLength="1"
+        d="M32 19L32 9 M21 27L10 23"/>
+    `,
+
+    /* 2. Badminton */
+    `
+      <g transform="rotate(28 31 28)">
+        <ellipse class="draw" pathLength="1"
+          cx="29" cy="21" rx="11" ry="15"/>
+        <path class="draw thin" pathLength="1"
+          d="M20 14L38 28 M19 20L35 33
+             M25 8L39 23 M22 32L35 10
+             M28 35L39 15"/>
+      </g>
+      <path class="draw accent" pathLength="1"
+        d="M37 35L49 51 M43 43L47 39
+           M45 46L49 42 M47 49L51 45"/>
+      <path class="draw" pathLength="1"
+        d="M10 37L17 32L24 40L20 48L16 52L12 49Z"/>
+      <path class="draw thin" pathLength="1"
+        d="M12 38L19 46 M16 34L17 47"/>
+      <path class="draw accent" pathLength="1"
+        d="M14 49L18 52"/>
+    `,
+
+    /* 3. Air hockey */
+    `
+      <rect class="draw" pathLength="1"
+        x="7" y="12" width="50" height="40" rx="5"/>
+      <path class="draw blue-accent" pathLength="1"
+        d="M32 13V51 M8 32H56"/>
+      <circle class="draw" pathLength="1"
+        cx="32" cy="32" r="7"/>
+      <rect class="draw accent" pathLength="1"
+        x="8" y="24" width="5" height="16" rx="1"/>
+      <rect class="draw accent" pathLength="1"
+        x="51" y="24" width="5" height="16" rx="1"/>
+      <circle class="draw accent" pathLength="1"
+        cx="22" cy="32" r="6"/>
+      <circle class="draw" pathLength="1"
+        cx="22" cy="32" r="2"/>
+      <circle class="draw coral-fill" pathLength="1"
+        cx="43" cy="25" r="3.5"/>
+    `,
+
+    /* 4. Pickleball */
+    `
+      <g transform="rotate(-18 30 28)">
+        <path class="draw" pathLength="1"
+          d="M18 8Q18 4 23 4H35Q41 4 41 10
+             V27Q41 36 30 38Q19 36 18 27Z"/>
+        <path class="draw accent" pathLength="1"
+          d="M27 37L30 53H37L34 37"/>
+        <circle class="draw accent" pathLength="1"
+          cx="25" cy="13" r="1.2"/>
+        <circle class="draw accent" pathLength="1"
+          cx="34" cy="12" r="1.2"/>
+        <circle class="draw accent" pathLength="1"
+          cx="24" cy="21" r="1.2"/>
+        <circle class="draw accent" pathLength="1"
+          cx="34" cy="21" r="1.2"/>
+        <circle class="draw accent" pathLength="1"
+          cx="29" cy="29" r="1.2"/>
+      </g>
+      <circle class="draw coral-fill" pathLength="1"
+        cx="49" cy="48" r="8"/>
+      <g class="ball-holes">
+        <circle cx="46" cy="45" r="1"/>
+        <circle cx="51" cy="44" r="1"/>
+        <circle cx="46" cy="50" r="1"/>
+        <circle cx="52" cy="50" r="1"/>
+      </g>
+    `,
+
+    /* 5. Bowling */
+    `
+      <path class="draw" pathLength="1"
+        d="M16 9Q12 10 14 17L16 22
+           Q11 27 12 34Q13 41 19 41
+           Q25 41 26 34Q27 27 22 22L24 16
+           Q26 9 21 9Z"/>
+      <path class="draw" pathLength="1"
+        d="M30 7Q26 8 28 15L30 19
+           Q26 24 27 30Q28 36 33 36
+           Q38 36 39 30Q40 24 36 19L37 14
+           Q39 7 34 7Z"/>
+      <path class="draw accent" pathLength="1"
+        d="M15 16H23 M29 14H36"/>
+      <path class="draw" pathLength="1"
+        d="M43 29Q55 31 57 43Q57 55 46 56
+           Q35 56 35 45Q35 34 43 29Z"/>
+      <circle class="draw blue-accent" pathLength="1"
+        cx="44" cy="41" r="1.5"/>
+      <circle class="draw blue-accent" pathLength="1"
+        cx="49" cy="40" r="1.5"/>
+      <circle class="draw blue-accent" pathLength="1"
+        cx="47" cy="46" r="1.5"/>
+    `
+  ];
+
+  const style = document.createElement("style");
+  style.textContent = `
+    .sport__badge .icon .accent {
+      stroke: #FF796F !important;
+    }
+
+    .sport__badge .icon .coral-fill {
+      fill: #FF796F !important;
+      stroke: #FF796F !important;
+    }
+
+    .sport__badge .icon .blue-accent {
+      stroke: #246BCE !important;
+    }
+
+    .sport__badge .icon .ball-holes circle {
+      fill: #171D2B !important;
+      stroke: #171D2B !important;
+    }
+  `;
+  document.head.appendChild(style);
+
+  document.querySelectorAll(".sport__badge .icon")
+    .forEach((svg, index) => {
+      if (icons[index]) {
+        svg.innerHTML = icons[index];
+      }
+    });
+
+  /* Animate the replacement icons when supported */
+  if (window.gsap && window.ScrollTrigger) {
+    gsap.fromTo(
+      ".sport__badge .icon .draw",
+      { strokeDashoffset: 1 },
+      {
+        strokeDashoffset: 0,
+        duration: 1,
+        stagger: 0.025,
+        ease: "power2.inOut",
+        scrollTrigger: {
+          trigger: ".games",
+          start: "top 80%",
+          once: true
+        }
+      }
+    );
+  }
+})();
+</script>
+
 </body>
 </html>
