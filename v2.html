@@ -730,8 +730,9 @@ a{color:inherit}
 }
 
 .timeline {
-  --c1: 210px;
-  --c2: 62px;
+  /* Keep the time labels in a roomy, consistent column before the divider. */
+  --c1: 255px;
+  --c2: 58px;
   position: relative;
   max-width: 1080px;
   margin: 0;
@@ -753,12 +754,14 @@ a{color:inherit}
 .stop__time {
   grid-column: 1;
   margin: 0;
+  padding-right: 26px;
   color: #171D2B;
   font-family: var(--f-sans);
   font-weight: 900;
   font-size: clamp(39px, 5.4vw, 66px);
   line-height: .95;
   font-variant-numeric: tabular-nums;
+  text-align: right;
 }
 
 .stop__time small {
@@ -771,7 +774,8 @@ a{color:inherit}
 }
 
 .stop__time--range {
-  font-size: clamp(28px, 3vw, 36px);
+  font-size: clamp(25px, 2.6vw, 32px);
+  letter-spacing: -.035em;
   white-space: nowrap;
 }
 
@@ -895,11 +899,14 @@ a{color:inherit}
 
   .stop__time {
     grid-area: time;
+    padding-right: 0;
+    text-align: left;
     font-size: clamp(38px, 10vw, 52px);
   }
 
   .stop__time--range {
-    font-size: clamp(27px, 7vw, 34px);
+    font-size: clamp(25px, 6.5vw, 32px);
+    letter-spacing: -.035em;
   }
 
   .stop__dot {
