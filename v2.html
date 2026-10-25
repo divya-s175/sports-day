@@ -1305,6 +1305,10 @@ a{color:inherit}
 
 
 
+    </ol>
+  </div>
+</section>
+
 <section class="teams paper cut-top rev" aria-labelledby="teams-h">
   <div class="fx" aria-hidden="true"><div class="dots"></div><div class="grain"></div></div>
   <div class="wrap">
@@ -1318,10 +1322,7 @@ a{color:inherit}
           <p class="tcard__team">Team A</p><span class="tcard__arm" aria-hidden="true">C</span>
           <div class="tcard__band"><p class="tcard__role">Captain</p><p class="tcard__name">A</p></div>
         </div></div>
-        <div class="squad"><p class="squad__k">Squad</p><ul class="squad__list">  <li>Player Name 1</li>
-  <li>Player Name 2</li>
-  <li>Player Name 3</li>
-  <li>Player Name 4</li></ul></div>
+        <div class="squad"><p class="squad__k">Squad</p><ul class="squad__list"><li class="squad__tba">Loading roster…</li></ul></div>
       </article>
       <article class="tcard tcard--b" aria-label="Team B, captain B">
         <div class="tcard__deal"><div class="tcard__face">
@@ -1812,6 +1813,17 @@ intro.from(".poster", {
   border: 0;
 }
 
+.game-rules-format {
+  display: inline-block;
+  margin: 12px 0 0;
+  padding: 6px 10px;
+  border-radius: 4px;
+  background: #171D2B;
+  color: #FFF7F3;
+  font: 800 11px/1.4 "Archivo", sans-serif;
+  letter-spacing: .08em;
+}
+
 .game-rules-message {
   margin: 0;
   font: 500 16px/1.7 "Archivo", sans-serif;
@@ -1822,6 +1834,207 @@ intro.from(".poster", {
   color: #606979;
   font: 500 13px/1.6 "Archivo", sans-serif;
 }
+</style>
+
+<script>
+(() => {
+  "use strict";
+
+  /* Team rosters: PowerPoint Team 1 = Team A, etc. */
+  const rosters = [
+    ["Abhishek", "Vani Marwah", "Balalinath R", "Deevan Kumar Bendukuri", "Sharath Aravind", "Pavithra", "Abhijith Menon", "Ashish", "Imran Khan", "Mouthik", "Pradeep", "Divya", "Kavisha", "Lakshana"],
+    ["Aditya Khanna", "Mahendra", "Bijesh Aggarwal", "Prakhar", "Surja", "Anjali", "Ajinkya", "Amartya Roy", "Rishav Kumar", "Shubhranshu", "Siddharth", "Aparajita", "Dhatri", "Saishiv"],
+    ["Rohit Halder", "Harsh Vikram", "Sachin", "Sreyansh Surana", "Daksha", "Nikita", "Anand Tiwari", "Omkar", "Prashun", "Subhasish", "Vivek", "Arpita", "Neha", "Sakshi"],
+    ["Deepthi Sirra", "Jitender Kumar Dass", "Johaan Koshy", "Shubham Chaudhary", "Vivek Banerjee", "Vaishali", "Karthikeya", "Saurabh", "Tanmay", "Vasudevan", "Wasif Hassan", "Jiya", "Lakshmi Priyadharshini", "Sanjana"]
+  ];
+
+  /* Simplified from the uploaded Sports Day 2026 rulebook. */
+  const sportsRules = {
+    football: {
+      title: "Football",
+      format: "RULES PENDING",
+      items: [
+        "The rulebook marks Football rules as pending.",
+        "Match format, team size, duration and scoring rules will be added once confirmed."
+      ]
+    },
+    badminton: {
+      title: "Badminton",
+      format: "KNOCKOUT • DOUBLES PAIRS",
+      items: [
+        "Four teams compete in a knockout tournament.",
+        "Each team nominates two doubles pairs: Pair 1 and Pair 2.",
+        "The winners of the two semifinals advance to the final.",
+        "Every rally earns a point (rally-point scoring).",
+        "Players change ends when either team reaches 11 points.",
+        "Standard badminton rules apply. The rulebook does not specify the match target score."
+      ]
+    },
+    airhockey: {
+      title: "Air Hockey",
+      format: "2 VS 2",
+      items: [
+        "Each team nominates 2 players.",
+        "The first team to score 7 goals wins. Each match has a 12-minute maximum.",
+        "If neither team reaches 7 goals within 12 minutes, the higher score wins.",
+        "If tied, the next goal (Golden Goal) decides the winner.",
+        "Do not touch the puck with your hands or obstruct the opponent's mallet.",
+        "The puck must stay on the playing surface."
+      ]
+    },
+    pickleball: {
+      title: "Pickleball",
+      format: "DOUBLES • KNOCKOUT",
+      items: [
+        "Each team nominates 2 players to form a doubles pair.",
+        "The tournament has two semifinals, a final and a third-place playoff.",
+        "Matches are played to 11 points, with a minimum 2-point winning margin.",
+        "Serve diagonally into the opponent's service court, clearing the kitchen.",
+        "The serve and return must both bounce before either team volleys (two-bounce rule).",
+        "Do not volley while standing in the kitchen or touching its boundary line.",
+        "A fault occurs if the ball lands outside the court, fails to clear the net, or a player breaks the kitchen or two-bounce rules."
+      ]
+    },
+    bowling: {
+      title: "Bowling",
+      format: "4 PLAYERS PER TEAM",
+      items: [
+        "Each team nominates 4 players.",
+        "Each player bowls one complete 10-frame game per knockout round.",
+        "Add all four players' scores to calculate the team's total.",
+        "The team with the higher combined score advances.",
+        "Standard ten-pin scoring applies, including strikes, spares and bonus deliveries in the 10th frame.",
+        "If team totals tie, compare the highest individual score from each team. The rulebook does not state a further tie-break if those scores also tie."
+      ]
+    }
+  };
+
+  /* Populate roster lists and make each team label a real button. */
+  document.querySelectorAll(".tcard").forEach((card, index) => {
+    const squad = card.querySelector(".squad");
+    const list = card.querySelector(".squad__list");
+    const teamLabel = card.querySelector(".tcard__team");
+
+    if (list && rosters[index]) {
+      list.replaceChildren();
+      rosters[index].forEach(name => {
+        const li = document.createElement("li");
+        li.textContent = name;
+        list.appendChild(li);
+      });
+    }
+
+    if (!squad || !teamLabel) return;
+
+    let button = teamLabel;
+    if (teamLabel.tagName.toLowerCase() !== "button") {
+      button = document.createElement("button");
+      button.type = "button";
+      button.className = teamLabel.className;
+      button.textContent = teamLabel.textContent.trim();
+      teamLabel.replaceWith(button);
+    }
+
+    if (!squad.id) squad.id = `team-roster-${index + 1}`;
+    button.setAttribute("aria-controls", squad.id);
+    button.setAttribute("aria-expanded", card.classList.contains("squad-open") ? "true" : "false");
+
+    if (button.dataset.rosterWired !== "true") {
+      button.dataset.rosterWired = "true";
+      button.addEventListener("click", event => {
+        event.stopPropagation();
+        const expanded = card.classList.toggle("squad-open");
+        button.setAttribute("aria-expanded", String(expanded));
+      });
+    }
+  });
+
+  /* Create the rules modal once. */
+  const overlay = document.createElement("div");
+  overlay.className = "game-rules-overlay";
+  overlay.hidden = true;
+  overlay.innerHTML = `
+    <section class="game-rules-modal" role="dialog" aria-modal="true"
+      aria-labelledby="game-rules-title" aria-describedby="game-rules-message">
+      <div class="game-rules-header">
+        <div>
+          <p class="game-rules-kicker">SPORTS DAY • MATCH RULES</p>
+          <h2 class="game-rules-title" id="game-rules-title">Game Rules</h2>
+          <p class="game-rules-format" id="game-rules-format"></p>
+        </div>
+        <button class="game-rules-close" type="button" aria-label="Close game rules">×</button>
+      </div>
+      <hr class="game-rules-divider">
+      <p class="game-rules-message" id="game-rules-message"></p>
+      <p class="game-rules-note">The referee's decision is final.</p>
+    </section>`;
+  document.body.appendChild(overlay);
+
+  const title = overlay.querySelector("#game-rules-title");
+  const format = overlay.querySelector("#game-rules-format");
+  const message = overlay.querySelector("#game-rules-message");
+  const note = overlay.querySelector(".game-rules-note");
+  const closeButton = overlay.querySelector(".game-rules-close");
+  let lastCard = null;
+  let previousOverflow = "";
+
+  function openRules(card) {
+    const heading = card.querySelector("h3");
+    const game = (heading ? heading.textContent : "").trim();
+    const key = game.toLowerCase().replace(/[^a-z]/g, "");
+    const data = sportsRules[key];
+    if (!data) return;
+
+    lastCard = card;
+    title.textContent = data.title + " Rules";
+    format.textContent = data.format;
+    message.textContent = data.items.map(item => "• " + item).join("\n\n");
+    message.style.whiteSpace = "pre-line";
+    note.textContent = "The referee's decision is final.";
+    previousOverflow = document.body.style.overflow;
+    overlay.hidden = false;
+    document.body.style.overflow = "hidden";
+    closeButton.focus();
+  }
+
+  function closeRules() {
+    overlay.hidden = true;
+    document.body.style.overflow = previousOverflow;
+    if (lastCard) lastCard.focus();
+  }
+
+  const gamesSection = document.querySelector('.games[aria-labelledby="games-h"]');
+  if (gamesSection) {
+    gamesSection.querySelectorAll(".sport").forEach(card => {
+      const heading = card.querySelector("h3");
+      const game = heading ? heading.textContent.trim() : "Sport";
+      card.tabIndex = 0;
+      card.setAttribute("role", "button");
+      card.setAttribute("aria-haspopup", "dialog");
+      card.setAttribute("aria-label", "View rules for " + game);
+      card.addEventListener("click", event => {
+        if (event.target.closest("a, button")) return;
+        openRules(card);
+      });
+      card.addEventListener("keydown", event => {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          openRules(card);
+        }
+      });
+    });
+  }
+
+  closeButton.addEventListener("click", closeRules);
+  overlay.addEventListener("click", event => {
+    if (event.target === overlay) closeRules();
+  });
+  document.addEventListener("keydown", event => {
+    if (!overlay.hidden && event.key === "Escape") closeRules();
+  });
+})();
+</script>
+
 <script>
 (() => {
   const section = document.querySelector("#order-of-play");
@@ -1890,436 +2103,6 @@ intro.from(".poster", {
       onLeaveBack: () => stop.classList.remove("is-on")
     });
   });
-})();
-</script>
-
-<script>
-(() => {
-  "use strict";
-
-  /* TEAM ROSTERS — Team 1=A, Team 2=B, Team 3=C, Team 4=D */
-  const rosters = [
-    [
-      "Abhishek", "Vani Marwah", "Balalinath R",
-      "Deevan Kumar Bendukuri", "Sharath Aravind",
-      "Pavithra", "Abhijith Menon", "Ashish",
-      "Imran Khan", "Mouthik", "Pradeep", "Divya",
-      "Kavisha", "Lakshana"
-    ],
-    [
-      "Aditya Khanna", "Mahendra", "Bijesh Aggarwal",
-      "Prakhar", "Surja", "Anjali", "Ajinkya",
-      "Amartya Roy", "Rishav Kumar", "Shubhranshu",
-      "Siddharth", "Aparajita", "Dhatri", "Saishiv"
-    ],
-    [
-      "Rohit Halder", "Harsh Vikram", "Sachin",
-      "Sreyansh Surana", "Daksha", "Nikita",
-      "Anand Tiwari", "Omkar", "Prashun", "Subhasish",
-      "Vivek", "Arpita", "Neha", "Sakshi"
-    ],
-    [
-      "Deepthi Sirra", "Jitender Kumar Dass",
-      "Johaan Koshy", "Shubham Chaudhary",
-      "Vivek Banerjee", "Vaishali", "Karthikeya",
-      "Saurabh", "Tanmay", "Vasudevan", "Wasif Hassan",
-      "Jiya", "Lakshmi Priyadharshini", "Sanjana"
-    ]
-  ];
-
-  /* SIMPLIFIED RULES — based on the uploaded rulebook */
-  const sportsRules = {
-    airhockey: {
-      title: "Air Hockey",
-      format: "2 VS 2",
-      items: [
-        "Each team nominates 2 players.",
-        "The first team to score 7 goals wins. Each match has a 12-minute maximum.",
-        "If neither team reaches 7 goals in 12 minutes, the higher score wins.",
-        "If the score is tied, the next goal (Golden Goal) decides the winner.",
-        "Do not touch the puck with your hands or obstruct the opponent's mallet.",
-        "The puck must stay on the playing surface."
-      ]
-    },
-
-    bowling: {
-      title: "Bowling",
-      format: "4 PLAYERS PER TEAM",
-      items: [
-        "Each team nominates 4 players.",
-        "Each player bowls one complete 10-frame game per knockout round.",
-        "Add all four players' scores to calculate the team's total.",
-        "The team with the higher combined score advances.",
-        "Standard ten-pin scoring applies, including strikes, spares and bonus deliveries in the 10th frame.",
-        "If team totals tie, compare each team's highest individual score. The rulebook does not specify a further tie-break if those scores also tie."
-      ]
-    },
-
-    pickleball: {
-      title: "Pickleball",
-      format: "DOUBLES • KNOCKOUT",
-      items: [
-        "Each team nominates 2 players to form a doubles pair.",
-        "The tournament has 2 semifinals, a final and a third-place playoff.",
-        "Matches are played to 11 points. You must win by at least 2 points.",
-        "Serve diagonally into the opponent's service court, clearing the kitchen.",
-        "The serve and return must both bounce before either team can volley (two-bounce rule).",
-        "Do not volley while standing in the kitchen or touching its boundary line.",
-        "A fault occurs if the ball lands outside the court, fails to clear the net, or a player breaks the kitchen or two-bounce rules."
-      ]
-    },
-
-    badminton: {
-      title: "Badminton",
-      format: "2 DOUBLES PAIRS PER TEAM",
-      items: [
-        "Four teams compete in a knockout tournament.",
-        "Each team nominates two doubles pairs: Pair 1 and Pair 2.",
-        "The winners of the two semifinals advance to the final.",
-        "Every rally earns a point (rally-point scoring).",
-        "Players change ends when either team reaches 11 points.",
-        "Standard badminton rules apply. The rulebook does not specify a match target score."
-      ]
-    },
-
-    football: {
-      title: "Football",
-      format: "RULES PENDING",
-      items: [
-        "The uploaded rulebook marks football rules as pending.",
-        "The final match format, team size, duration and scoring rules will be added once confirmed."
-      ]
-    }
-  };
-
-  /* Visual styling for the roster and rules pop-up */
-  const styles = document.createElement("style");
-  styles.textContent = `
-    .tcard .squad { display: none !important; }
-    .tcard.squad-open .squad { display: block !important; }
-
-    button.tcard__team {
-      appearance: none;
-      border: 0;
-      background: transparent;
-      font-family: inherit;
-      cursor: pointer;
-      padding: 0 8px;
-      color: #FFF7F3;
-    }
-
-    button.tcard__team:focus-visible {
-      outline: 2px solid #FFF7F3;
-      outline-offset: 4px;
-      border-radius: 3px;
-    }
-
-    button.tcard__team::after {
-      content: " +";
-      color: var(--team-accent, #FF796F);
-      margin-left: 5px;
-    }
-
-    .tcard.squad-open button.tcard__team::after {
-      content: " −";
-    }
-
-    .squad__list {
-      list-style: none;
-      padding: 0;
-      margin: 12px 0 0;
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 9px 14px;
-    }
-
-    .squad__list li {
-      overflow-wrap: anywhere;
-      font-size: 14px;
-      line-height: 1.35;
-    }
-
-    .sd-rules-overlay[hidden] { display: none !important; }
-
-    .sd-rules-overlay {
-      position: fixed;
-      inset: 0;
-      z-index: 99999;
-      padding: 22px;
-      display: grid;
-      place-items: center;
-      overflow-y: auto;
-      background: rgba(10, 15, 28, .82);
-      backdrop-filter: blur(6px);
-    }
-
-    .sd-rules-panel {
-      width: min(100%, 570px);
-      max-height: min(82vh, 760px);
-      overflow-y: auto;
-      padding: clamp(22px, 5vw, 34px);
-      color: #171D2B;
-      background: #FFF7F3;
-      border: 3px solid #FF796F;
-      border-radius: 14px;
-      box-shadow: 8px 8px 0 #246BCE;
-    }
-
-    .sd-rules-top {
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      gap: 16px;
-    }
-
-    .sd-rules-kicker {
-      margin: 0 0 8px;
-      color: #F25D55;
-      font-size: 12px;
-      font-weight: 900;
-      letter-spacing: .16em;
-      text-transform: uppercase;
-    }
-
-    .sd-rules-title {
-      margin: 0;
-      font-size: clamp(30px, 6vw, 42px);
-      line-height: 1.05;
-      font-weight: 900;
-    }
-
-    .sd-rules-format {
-      display: inline-block;
-      margin: 13px 0 0;
-      padding: 7px 10px;
-      border-radius: 5px;
-      background: #171D2B;
-      color: #FFF7F3;
-      font-size: 11px;
-      font-weight: 800;
-      letter-spacing: .08em;
-    }
-
-    .sd-rules-close {
-      flex: 0 0 auto;
-      width: 42px;
-      height: 42px;
-      border: 0;
-      border-radius: 50%;
-      background: #171D2B;
-      color: #FFF7F3;
-      font-size: 27px;
-      cursor: pointer;
-    }
-
-    .sd-rules-list {
-      display: grid;
-      gap: 12px;
-      margin: 25px 0;
-      padding-left: 23px;
-      line-height: 1.55;
-      font-size: 16px;
-    }
-
-    .sd-rules-list li::marker {
-      color: #F25D55;
-      font-weight: 900;
-    }
-
-    .sd-rules-footer {
-      margin: 0;
-      padding-top: 15px;
-      border-top: 1px solid #E5CFC9;
-      color: #465064;
-      font-size: 13px;
-      font-weight: 700;
-    }
-
-    @media (max-width: 520px) {
-      .sd-rules-overlay { padding: 14px; }
-      .sd-rules-panel { max-height: 88vh; }
-      .squad__list { grid-template-columns: 1fr; }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      .sd-rules-overlay { scroll-behavior: auto; }
-    }
-  `;
-  document.head.appendChild(styles);
-
-  /* Populate the existing four team cards */
-  document.querySelectorAll(".tcard").forEach((card, index) => {
-    const squad = card.querySelector(".squad");
-    const list = card.querySelector(".squad__list");
-    const teamLabel = card.querySelector(".tcard__team");
-    const members = rosters[index];
-
-    if (list && members) {
-      list.replaceChildren();
-
-      members.forEach(name => {
-        const item = document.createElement("li");
-        item.textContent = name;
-        list.appendChild(item);
-      });
-    }
-
-    if (!squad || !teamLabel) return;
-
-    let button = teamLabel;
-
-    if (teamLabel.tagName.toLowerCase() !== "button") {
-      button = document.createElement("button");
-      button.type = "button";
-      button.className = teamLabel.className;
-      button.textContent = teamLabel.textContent.trim();
-      teamLabel.replaceWith(button);
-    }
-
-    if (!squad.id) squad.id = `sd-team-roster-${index + 1}`;
-
-    button.setAttribute("aria-controls", squad.id);
-    button.setAttribute(
-      "aria-expanded",
-      card.classList.contains("squad-open") ? "true" : "false"
-    );
-
-    if (button.dataset.rosterWired !== "true") {
-      button.dataset.rosterWired = "true";
-
-      button.addEventListener("click", event => {
-        event.stopPropagation();
-        const isOpen = card.classList.toggle("squad-open");
-        button.setAttribute("aria-expanded", String(isOpen));
-      });
-    }
-  });
-
-  /* Build the sport-rules pop-up */
-  const overlay = document.createElement("div");
-  overlay.className = "sd-rules-overlay";
-  overlay.id = "sd-sport-rules";
-  overlay.hidden = true;
-  overlay.innerHTML = `
-    <div class="sd-rules-panel"
-         role="dialog"
-         aria-modal="true"
-         aria-labelledby="sd-rules-title">
-      <div class="sd-rules-top">
-        <div>
-          <p class="sd-rules-kicker">Sports Day • Match rules</p>
-          <h2 class="sd-rules-title" id="sd-rules-title"></h2>
-          <span class="sd-rules-format" id="sd-rules-format"></span>
-        </div>
-        <button class="sd-rules-close"
-                type="button"
-                aria-label="Close rules">×</button>
-      </div>
-      <ul class="sd-rules-list" id="sd-rules-list"></ul>
-      <p class="sd-rules-footer">
-        Play fair. The referee's decision is final.
-      </p>
-    </div>
-  `;
-  document.body.appendChild(overlay);
-
-  const title = overlay.querySelector("#sd-rules-title");
-  const format = overlay.querySelector("#sd-rules-format");
-  const list = overlay.querySelector("#sd-rules-list");
-  const closeButton = overlay.querySelector(".sd-rules-close");
-
-  let lastTrigger = null;
-  let oldBodyOverflow = "";
-
-  function openRules(card) {
-    const heading = card.querySelector("h3");
-    const sportName = heading ? heading.textContent.trim() : "Sport";
-    const key = sportName.toLowerCase().replace(/[^a-z]/g, "");
-    const data = sportsRules[key];
-
-    if (!data) return;
-
-    lastTrigger = card;
-    oldBodyOverflow = document.body.style.overflow;
-
-    title.textContent = data.title;
-    format.textContent = data.format;
-    list.replaceChildren();
-
-    data.items.forEach(rule => {
-      const item = document.createElement("li");
-      item.textContent = rule;
-      list.appendChild(item);
-    });
-
-    overlay.hidden = false;
-    document.body.style.overflow = "hidden";
-    closeButton.focus();
-  }
-
-  function closeRules() {
-    overlay.hidden = true;
-    document.body.style.overflow = oldBodyOverflow;
-
-    if (lastTrigger) lastTrigger.focus();
-  }
-
-  closeButton.addEventListener("click", closeRules);
-
-  overlay.addEventListener("click", event => {
-    if (event.target === overlay) closeRules();
-  });
-
-  document.addEventListener("keydown", event => {
-    if (event.key === "Escape" && !overlay.hidden) {
-      closeRules();
-    }
-  });
-
-  /* Attach pop-ups to the five cards in the main sports section */
-  const sportsSection = document.querySelector(
-    '.games[aria-labelledby="games-h"]'
-  );
-
-  if (!sportsSection) {
-    console.warn("Sports Day: main games section was not found.");
-    return;
-  }
-
-  sportsSection.querySelectorAll(".sport").forEach(card => {
-    const heading = card.querySelector("h3");
-    if (!heading) return;
-
-    card.setAttribute("tabindex", "0");
-    card.setAttribute("role", "button");
-    card.setAttribute(
-      "aria-label",
-      `${heading.textContent.trim()}: tap to view rules`
-    );
-  });
-
-  /* Capture clicks before any older card click handlers */
-  sportsSection.addEventListener("click", event => {
-    const card = event.target.closest(".sport");
-    if (!card || !sportsSection.contains(card)) return;
-
-    event.preventDefault();
-    event.stopPropagation();
-    event.stopImmediatePropagation();
-    openRules(card);
-  }, true);
-
-  sportsSection.addEventListener("keydown", event => {
-    const card = event.target.closest(".sport");
-    if (!card || !sportsSection.contains(card)) return;
-
-    if (event.key === "Enter" || event.key === " ") {
-      event.preventDefault();
-      event.stopPropagation();
-      event.stopImmediatePropagation();
-      openRules(card);
-    }
-  }, true);
 })();
 </script>
 
