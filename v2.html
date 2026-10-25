@@ -932,6 +932,141 @@ a{color:inherit}
 }
 </style>
 
+<style>
+/* TEAM CAPTAINS — tournament shield design */
+
+/* Team-specific colours */
+.tcard--a,
+.tcard--c {
+  --team-accent: #FF796F;
+  --team-ink: #171D2B;
+}
+
+.tcard--b,
+.tcard--d {
+  --team-accent: #246BCE;
+  --team-ink: #FFFFFF;
+}
+
+/* Dark, clean cards replace the old coloured playing cards */
+.tcard__face {
+  background: #171D2B !important;
+  border: 3px solid var(--team-accent) !important;
+  border-radius: 10px !important;
+  box-shadow: 6px 6px 0 var(--team-accent) !important;
+  overflow: hidden;
+}
+
+/* Remove the old burst and captain armband */
+.tcard__burst,
+.tcard__arm {
+  display: none !important;
+}
+
+/* Create the shield outline */
+.tcard__face::before,
+.tcard__face::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 9%;
+  aspect-ratio: 100 / 110;
+  transform: translateX(-50%);
+  clip-path: polygon(
+    5% 0, 95% 0, 88% 62%,
+    50% 100%, 12% 62%
+  );
+}
+
+.tcard__face::before {
+  width: 51%;
+  background: #FFF7F3;
+  z-index: 1;
+}
+
+.tcard__face::after {
+  top: calc(9% + 4px);
+  width: calc(51% - 8px);
+  background: var(--team-accent);
+  z-index: 2;
+}
+
+/* Put the team letter in the middle of the shield */
+.tcard__letter {
+  top: 34% !important;
+  left: 50% !important;
+  translate: -50% -50% !important;
+  rotate: 0deg !important;
+  font-size: 43cqw !important;
+  line-height: 1 !important;
+  color: var(--team-ink) !important;
+  -webkit-text-stroke: 0 !important;
+  z-index: 3;
+}
+
+/* Team name beneath the shield */
+.tcard__team {
+  left: 0 !important;
+  right: 0 !important;
+  top: 63% !important;
+  text-align: center;
+  font-size: clamp(15px, 1.5vw, 19px) !important;
+  letter-spacing: .16em !important;
+  color: #FFF7F3;
+  z-index: 3;
+}
+
+/* Cleaner captain details at the bottom */
+.tcard__band {
+  left: 7% !important;
+  right: 7% !important;
+  bottom: 5% !important;
+  padding: 12px 0 4px !important;
+  background: transparent !important;
+  color: #FFF7F3 !important;
+  text-align: center;
+  transform: none !important;
+  box-shadow: none !important;
+  border-top: 1px solid rgba(255,255,255,.25);
+  z-index: 3;
+}
+
+.tcard__role {
+  color: var(--team-accent) !important;
+  font-size: 12px !important;
+  letter-spacing: .16em !important;
+}
+
+.tcard__name {
+  color: #FFF7F3 !important;
+  font-size: clamp(27px, 2.5vw, 35px) !important;
+}
+
+/* Keep the squad section consistent */
+.squad {
+  border-top-color: var(--team-accent) !important;
+}
+
+.squad__k {
+  color: #171D2B;
+}
+
+.squad__tba {
+  color: #606979;
+}
+
+/* Subtle lift on hover */
+@media (hover: hover) {
+  .tcard__deal {
+    transition: transform .2s ease;
+  }
+
+  .tcard:hover .tcard__deal {
+    transform: translateY(-5px);
+  }
+}
+</style>
+
 </head>
 <body>
 <div class="progress" aria-hidden="true"><div class="progress__bar"></div></div>
