@@ -1067,6 +1067,63 @@ a{color:inherit}
 }
 </style>
 
+<style>
+/* Expandable team rosters */
+.tcard .squad {
+  display: none !important;
+  animation: rosterReveal 0.22s ease-out;
+}
+
+.tcard.squad-open .squad {
+  display: block !important;
+}
+
+.tcard__team {
+  appearance: none;
+  border: 0;
+  background: transparent;
+  font-family: inherit;
+  padding: 0 8px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.tcard__team::after {
+  content: " +";
+  display: inline-block;
+  margin-left: 5px;
+  color: var(--team-accent, #FF796F);
+  font-size: 0.85em;
+}
+
+.tcard.squad-open .tcard__team::after {
+  content: " −";
+}
+
+.tcard__team:focus-visible {
+  outline: 2px solid #FFF7F3;
+  outline-offset: 4px;
+  border-radius: 3px;
+}
+
+@keyframes rosterReveal {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tcard .squad {
+    animation: none;
+  }
+}
+</style>
+
 </head>
 <body>
 <div class="progress" aria-hidden="true"><div class="progress__bar"></div></div>
@@ -1261,7 +1318,10 @@ a{color:inherit}
           <p class="tcard__team">Team A</p><span class="tcard__arm" aria-hidden="true">C</span>
           <div class="tcard__band"><p class="tcard__role">Captain</p><p class="tcard__name">A</p></div>
         </div></div>
-        <div class="squad"><p class="squad__k">Squad</p><ul class="squad__list"><li class="squad__tba">Squad list coming soon</li></ul></div>
+        <div class="squad"><p class="squad__k">Squad</p><ul class="squad__list">  <li>Player Name 1</li>
+  <li>Player Name 2</li>
+  <li>Player Name 3</li>
+  <li>Player Name 4</li></ul></div>
       </article>
       <article class="tcard tcard--b" aria-label="Team B, captain B">
         <div class="tcard__deal"><div class="tcard__face">
@@ -1969,6 +2029,33 @@ function openRules(card) {
     });
   });
 })();
+</script>
+
+<script>
+document.querySelectorAll('.tcard').forEach((card, index) => {
+  const teamLabel = card.querySelector('.tcard__team');
+  const squad = card.querySelector('.squad');
+
+  if (!teamLabel || !squad) return;
+
+  // Turn the team name into an accessible button.
+  const button = document.createElement('button');
+  button.type = 'button';
+  button.className = teamLabel.className;
+  button.textContent = teamLabel.textContent.trim();
+  button.setAttribute('aria-expanded', 'false');
+
+  squad.id = `team-roster-${index + 1}`;
+  button.setAttribute('aria-controls', squad.id);
+
+  teamLabel.replaceWith(button);
+
+  // Expand or collapse the roster when clicked.
+  button.addEventListener('click', () => {
+    const isOpen = card.classList.toggle('squad-open');
+    button.setAttribute('aria-expanded', String(isOpen));
+  });
+});
 </script>
 
 </body>
