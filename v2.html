@@ -696,6 +696,242 @@ a{color:inherit}
   background: #246BCE !important;
 }
 </style>
+
+   
+<style>
+/* ORDER OF PLAY — coral, charcoal and blue */
+
+.schedule {
+  position: relative;
+  overflow: hidden;
+  padding-block: clamp(65px, 9vw, 120px);
+  color: #171D2B;
+  background:
+    radial-gradient(ellipse at 100% 0%,
+      rgba(255,121,111,.16), transparent 34%),
+    radial-gradient(ellipse at 0% 100%,
+      rgba(36,107,206,.09), transparent 36%),
+    #FFF7F3;
+}
+
+.schedule__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 12px 30px;
+  margin-bottom: clamp(38px, 6vw, 65px);
+}
+
+.schedule__head .script {
+  color: #F25D55;
+  font-size: clamp(24px, 2.6vw, 34px);
+  transform: rotate(-2deg);
+}
+
+.timeline {
+  --c1: 210px;
+  --c2: 62px;
+  position: relative;
+  max-width: 1080px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.stop {
+  position: relative;
+  display: grid;
+  grid-template-columns: var(--c1) var(--c2) minmax(0, 1fr);
+  padding-bottom: clamp(48px, 6vw, 74px);
+}
+
+.stop:last-child {
+  padding-bottom: 0;
+}
+
+.stop__time {
+  grid-column: 1;
+  margin: 0;
+  color: #171D2B;
+  font-family: var(--f-sans);
+  font-weight: 900;
+  font-size: clamp(39px, 5.4vw, 66px);
+  line-height: .95;
+  font-variant-numeric: tabular-nums;
+}
+
+.stop__time small {
+  display: block;
+  margin-top: 8px;
+  color: #F25D55;
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: .1em;
+}
+
+.stop__time--range {
+  font-size: clamp(28px, 3vw, 36px);
+  white-space: nowrap;
+}
+
+.stop__dot {
+  grid-column: 2;
+  justify-self: center;
+  position: relative;
+  z-index: 2;
+  width: 22px;
+  height: 22px;
+  margin-top: 7px;
+  border: 4px solid #FF796F;
+  border-radius: 50%;
+  background: #FFF7F3;
+}
+
+.stop::before {
+  content: "";
+  position: absolute;
+  left: calc(var(--c1) + var(--c2) / 2 - 1.5px);
+  top: 27px;
+  bottom: -12px;
+  width: 3px;
+  background: #F2C9C4;
+}
+
+.stop:last-child::before {
+  display: none;
+}
+
+.stop__body {
+  grid-column: 3;
+  min-width: 0;
+  max-width: 640px;
+  padding-top: 0;
+}
+
+.stop__title {
+  margin: 0;
+  color: #171D2B;
+  font-weight: 850;
+  font-size: clamp(23px, 2.5vw, 32px);
+  line-height: 1.12;
+}
+
+.stop__text {
+  margin-top: 10px;
+  color: #505968;
+  font-size: 16px;
+  line-height: 1.7;
+}
+
+.stop__text strong {
+  color: #171D2B;
+}
+
+.stop__act {
+  margin-top: 16px;
+}
+
+.stop__act .btn {
+  background: #FF796F;
+  color: #171D2B;
+  border-color: #171D2B;
+  box-shadow: 4px 4px 0 #171D2B;
+}
+
+/* Animated progress line and ball */
+.track {
+  position: absolute;
+  z-index: 3;
+  top: 17px;
+  left: calc(var(--c1) + var(--c2) / 2 - 1.5px);
+  width: 3px;
+  height: var(--track-h, 0px);
+  pointer-events: none;
+}
+
+.track__fill {
+  position: absolute;
+  inset: 0;
+  background: #F25D55;
+  transform: scaleY(0);
+  transform-origin: 50% 0;
+}
+
+.track__ball {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 32px;
+  height: 32px;
+  margin: -16px 0 0 -16px;
+  filter: drop-shadow(0 3px 4px rgba(23,29,43,.2));
+}
+
+.stop.is-on .stop__time {
+  color: #F25D55;
+}
+
+.stop.is-on .stop__dot {
+  background: #F25D55;
+  border-color: #F25D55;
+  box-shadow: 0 0 0 6px rgba(255,121,111,.18);
+}
+
+/* Mobile layout */
+@media (max-width: 700px) {
+  .timeline {
+    --c1: 0px;
+    --c2: 42px;
+  }
+
+  .stop {
+    grid-template-columns: var(--c2) minmax(0, 1fr);
+    grid-template-areas:
+      "dot time"
+      "dot body";
+    row-gap: 0;
+  }
+
+  .stop__time {
+    grid-area: time;
+    font-size: clamp(38px, 10vw, 52px);
+  }
+
+  .stop__time--range {
+    font-size: clamp(27px, 7vw, 34px);
+  }
+
+  .stop__dot {
+    grid-area: dot;
+    justify-self: start;
+    margin-left: calc(var(--c2) / 2 - 11px);
+    margin-top: 5px;
+  }
+
+  .stop::before {
+    left: calc(var(--c2) / 2 - 1.5px);
+    top: 25px;
+  }
+
+  .stop__body {
+    grid-area: body;
+    padding-top: 13px;
+  }
+
+  .stop__time small {
+    display: inline;
+    margin: 0 0 0 7px;
+    font-size: 12px;
+  }
+
+  .track {
+    left: calc(var(--c2) / 2 - 1.5px);
+    top: 17px;
+  }
+}
+</style>
+
 </head>
 <body>
 <div class="progress" aria-hidden="true"><div class="progress__bar"></div></div>
@@ -806,17 +1042,86 @@ a{color:inherit}
   </div>
 </section>
 
-<section class="rules night cut-top" aria-labelledby="rules-h">
-  <div class="fx" aria-hidden="true"><div class="speed"></div><div class="dots"></div><div class="grain"></div></div>
+
+<section class="schedule" id="order-of-play"
+  aria-labelledby="order-h">
+
   <div class="wrap">
-    <h2 class="h-brush light" id="rules-h">Ground rules</h2>
-    <ul class="rlist">
-      <li class="rule"><div class="rbadge"><svg viewBox="0 0 400 400" aria-hidden="true"><path d="M362.6 198.6 L375.1 230.2 L325.9 235.4 L371.5 314.7 L299.7 302.3 L293.3 346.9 L245.1 326 L240.9 395.5 L210.4 364.6 L177.4 390.2 L136.5 344.4 L87.8 349.5 L100.2 321 L40.2 316.7 L75.4 254.4 L24.5 250.2 L36.8 208.6 L26 154.1 L69.5 131.5 L36.1 110.5 L96.6 117.9 L82.6 30 L140.8 47.3 L147.8 12.9 L189.3 51 L217.2 25.2 L245 41.5 L292.6 32.8 L291 105.4 L361.1 87.5 L354.8 139.3 L388.7 149.4 Z"/></svg><span>3</span></div><p><b>doubles sets per game:</b> men’s, women’s and mixed</p></li>
-      <li class="rule"><div class="rbadge"><svg viewBox="0 0 400 400" aria-hidden="true"><path d="M362.6 198.6 L375.1 230.2 L325.9 235.4 L371.5 314.7 L299.7 302.3 L293.3 346.9 L245.1 326 L240.9 395.5 L210.4 364.6 L177.4 390.2 L136.5 344.4 L87.8 349.5 L100.2 321 L40.2 316.7 L75.4 254.4 L24.5 250.2 L36.8 208.6 L26 154.1 L69.5 131.5 L36.1 110.5 L96.6 117.9 L82.6 30 L140.8 47.3 L147.8 12.9 L189.3 51 L217.2 25.2 L245 41.5 L292.6 32.8 L291 105.4 L361.1 87.5 L354.8 139.3 L388.7 149.4 Z"/></svg><span>1</span></div><p><b>set max per person</b> within each game</p></li>
-      <li class="rule rule--hot"><div class="rbadge"><svg viewBox="0 0 400 400" aria-hidden="true"><path d="M362.6 198.6 L375.1 230.2 L325.9 235.4 L371.5 314.7 L299.7 302.3 L293.3 346.9 L245.1 326 L240.9 395.5 L210.4 364.6 L177.4 390.2 L136.5 344.4 L87.8 349.5 L100.2 321 L40.2 316.7 L75.4 254.4 L24.5 250.2 L36.8 208.6 L26 154.1 L69.5 131.5 L36.1 110.5 L96.6 117.9 L82.6 30 L140.8 47.3 L147.8 12.9 L189.3 51 L217.2 25.2 L245 41.5 L292.6 32.8 L291 105.4 L361.1 87.5 L354.8 139.3 L388.7 149.4 Z"/></svg><span>1</span></div><p><b>B40+ captain</b> for each game</p></li>
-    </ul>
+    <div class="schedule__head">
+      <h2 class="h-brush ink" id="order-h">Order of Play</h2>
+      <p class="script">One day. Five games.</p>
+    </div>
+
+    <ol class="timeline">
+      <li class="track" aria-hidden="true">
+        <span class="track__fill"></span>
+        <svg class="track__ball" viewBox="0 0 40 40">
+          <circle cx="20" cy="20" r="18"
+            fill="#FF796F" stroke="#171D2B" stroke-width="2"/>
+          <path d="M8 20 Q20 10 32 20 M20 2 Q10 20 20 38
+                   M20 2 Q30 20 20 38"
+            fill="none" stroke="#FFF7F3" stroke-width="1.5"/>
+        </svg>
+      </li>
+
+      <li class="stop">
+        <p class="stop__time">10:00
+          <small>AM</small>
+        </p>
+        <span class="stop__dot" aria-hidden="true"></span>
+
+        <div class="stop__body">
+          <h3 class="stop__title">Sports Day begins</h3>
+          <p class="stop__text">
+            Play Arena, Sarjapur Main Road,
+            Bengaluru-560035.
+          </p>
+          <div class="stop__act">
+            <a class="btn"
+              href="https://maps.google.com/?q=Play+Arena+Sarjapur"
+              target="_blank" rel="noopener">
+              Navigate to venue
+            </a>
+          </div>
+        </div>
+      </li>
+
+      <li class="stop">
+        <p class="stop__time stop__time--range">
+          10 AM–3 PM
+        </p>
+        <span class="stop__dot" aria-hidden="true"></span>
+
+        <div class="stop__body">
+          <h3 class="stop__title">Games &amp; team competitions</h3>
+          <p class="stop__text">
+            Football, Badminton, Air Hockey,
+            Pickleball and Bowling.
+          </p>
+          <p class="stop__text">
+            Individual game timings and the order
+            of competitions will be added once finalised.
+          </p>
+        </div>
+      </li>
+
+      <li class="stop">
+        <p class="stop__time">3:00
+          <small>PM</small>
+        </p>
+        <span class="stop__dot" aria-hidden="true"></span>
+
+        <div class="stop__body">
+          <h3 class="stop__title">Sports Day wraps up</h3>
+          <p class="stop__text">
+            End of the scheduled event window.
+          </p>
+        </div>
+      </li>
+    </ol>
   </div>
 </section>
+
 
 <section class="teams paper cut-top rev" aria-labelledby="teams-h">
   <div class="fx" aria-hidden="true"><div class="dots"></div><div class="grain"></div></div>
@@ -1466,6 +1771,77 @@ function openRules(card) {
     if (!overlay.hidden && event.key === "Escape") {
       closeRules();
     }
+  });
+})();
+</script>
+
+<script>
+(() => {
+  const section = document.querySelector("#order-of-play");
+  if (!section || !window.gsap || !window.ScrollTrigger) return;
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  const timeline = section.querySelector(".timeline");
+  const stops = [...timeline.querySelectorAll(".stop")];
+  const track = timeline.querySelector(".track");
+  const fill = timeline.querySelector(".track__fill");
+  const ball = timeline.querySelector(".track__ball");
+
+  if (!stops.length || !track || !fill || !ball) return;
+
+  const first = stops[0];
+  const last = stops[stops.length - 1];
+
+  const distance = () => last.offsetTop - first.offsetTop;
+
+  const sizeTrack = () => {
+    track.style.setProperty(
+      "--track-h",
+      Math.max(0, distance()) + "px"
+    );
+  };
+
+  sizeTrack();
+  ScrollTrigger.addEventListener("refreshInit", sizeTrack);
+
+  const progress = {
+    trigger: first,
+    start: "top 62%",
+    endTrigger: last,
+    end: "top 62%",
+    scrub: 0.4
+  };
+
+  gsap.fromTo(fill,
+    { scaleY: 0 },
+    {
+      scaleY: 1,
+      ease: "none",
+      scrollTrigger: progress
+    }
+  );
+
+  gsap.fromTo(ball,
+    { y: 0, rotate: 0 },
+    {
+      y: distance,
+      rotate: 720,
+      ease: "none",
+      scrollTrigger: {
+        ...progress,
+        invalidateOnRefresh: true
+      }
+    }
+  );
+
+  stops.forEach(stop => {
+    ScrollTrigger.create({
+      trigger: stop,
+      start: "top 62%",
+      onEnter: () => stop.classList.add("is-on"),
+      onLeaveBack: () => stop.classList.remove("is-on")
+    });
   });
 })();
 </script>
