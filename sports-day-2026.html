@@ -1072,7 +1072,7 @@ a{color:inherit}
 </style>
 
 <style>
-/* Expandable team rosters — the full captain-card face is interactive */
+/* Expandable team rosters */
 .tcard .squad {
   display: none !important;
   animation: rosterReveal 0.22s ease-out;
@@ -1082,32 +1082,14 @@ a{color:inherit}
   display: block !important;
 }
 
-.tcard__deal[role="button"] {
-  cursor: pointer;
-  touch-action: manipulation;
-}
-
-.tcard__deal[role="button"]:focus-visible .tcard__face {
-  outline: 3px solid #FFF7F3;
-  outline-offset: 5px;
-}
-
 .tcard__team {
+  appearance: none;
+  border: 0;
+  background: transparent;
   font-family: inherit;
   padding: 0 8px;
   cursor: pointer;
   user-select: none;
-}
-
-/* Fit the editable captain placeholder neatly into the name strip */
-.tcard__name {
-  color: #FFF7F3 !important;
-  font-family: var(--f-sans) !important;
-  font-size: clamp(14px, 1.5vw, 20px) !important;
-  font-weight: 800;
-  letter-spacing: .02em;
-  line-height: 1.1 !important;
-  white-space: nowrap;
 }
 
 .tcard__team::after {
@@ -1668,43 +1650,43 @@ a{color:inherit}
   <div class="wrap">
     <div class="sec-head"><h2 class="h-brush ink" id="teams-h">Teams &amp; captains</h2><p class="script">Bring your A-game.</p></div>
     <div class="deck">
-      <article class="tcard tcard--a" aria-label="Team A, captain name to be announced">
+      <article class="tcard tcard--a" aria-label="Team A, captain A">
         <div class="tcard__deal"><div class="tcard__face">
           <div class="fx" aria-hidden="true"><div class="speed"></div><div class="dots"></div></div>
           <svg class="tcard__burst" viewBox="0 0 400 400" aria-hidden="true"><path d="M306.8 193.2 L377.7 211.3 L325.8 223.1 L400.9 287 L289.3 265.8 L349.6 315.7 L294 292.7 L299.1 330.4 L237.1 301.7 L246.7 404.5 L224.3 327.4 L194.8 404.3 L171.3 320.4 L160.8 390.5 L156.3 295.4 L110.6 361 L118.4 276.4 L47.8 313.6 L84.7 259 L2.1 287 L88.7 232.5 L8.5 230.9 L96.9 208.4 L-9.6 178.2 L82.5 179 L48.1 126 L108.5 142.1 L25.2 58 L125.6 117.7 L84 41.2 L146.3 92.6 L159.7 32.6 L195 90.7 L187.9 48.7 L223.1 89.7 L250.3 42.2 L242.8 83 L280.2 72.8 L296.3 108.1 L366.1 80.6 L298.3 119.4 L398.5 99 L322.5 161.1 L395.4 189.4 Z"/></svg>
           <span class="tcard__letter" aria-hidden="true">A</span>
           <p class="tcard__team">Team A</p><span class="tcard__arm" aria-hidden="true">C</span>
-          <div class="tcard__band"><p class="tcard__role">Captain</p><p class="tcard__name">Captain Name</p></div>
+          <div class="tcard__band"><p class="tcard__role">Captain</p><p class="tcard__name">A</p></div>
         </div></div>
         <div class="squad"><p class="squad__k">Squad</p><ul class="squad__list"><li class="squad__tba">Loading roster…</li></ul></div>
       </article>
-      <article class="tcard tcard--b" aria-label="Team B, captain name to be announced">
+      <article class="tcard tcard--b" aria-label="Team B, captain B">
         <div class="tcard__deal"><div class="tcard__face">
           <div class="fx" aria-hidden="true"><div class="speed"></div><div class="dots"></div></div>
           <svg class="tcard__burst" viewBox="0 0 400 400" aria-hidden="true"><path d="M306.8 193.2 L377.7 211.3 L325.8 223.1 L400.9 287 L289.3 265.8 L349.6 315.7 L294 292.7 L299.1 330.4 L237.1 301.7 L246.7 404.5 L224.3 327.4 L194.8 404.3 L171.3 320.4 L160.8 390.5 L156.3 295.4 L110.6 361 L118.4 276.4 L47.8 313.6 L84.7 259 L2.1 287 L88.7 232.5 L8.5 230.9 L96.9 208.4 L-9.6 178.2 L82.5 179 L48.1 126 L108.5 142.1 L25.2 58 L125.6 117.7 L84 41.2 L146.3 92.6 L159.7 32.6 L195 90.7 L187.9 48.7 L223.1 89.7 L250.3 42.2 L242.8 83 L280.2 72.8 L296.3 108.1 L366.1 80.6 L298.3 119.4 L398.5 99 L322.5 161.1 L395.4 189.4 Z"/></svg>
           <span class="tcard__letter" aria-hidden="true">B</span>
           <p class="tcard__team">Team B</p><span class="tcard__arm" aria-hidden="true">C</span>
-          <div class="tcard__band"><p class="tcard__role">Captain</p><p class="tcard__name">Captain Name</p></div>
+          <div class="tcard__band"><p class="tcard__role">Captain</p><p class="tcard__name">B</p></div>
         </div></div>
         <div class="squad"><p class="squad__k">Squad</p><ul class="squad__list"><li class="squad__tba">Squad list coming soon</li></ul></div>
       </article>
-      <article class="tcard tcard--c" aria-label="Team C, captain name to be announced">
+      <article class="tcard tcard--c" aria-label="Team C, captain C">
         <div class="tcard__deal"><div class="tcard__face">
           <div class="fx" aria-hidden="true"><div class="speed"></div><div class="dots"></div></div>
           <svg class="tcard__burst" viewBox="0 0 400 400" aria-hidden="true"><path d="M306.8 193.2 L377.7 211.3 L325.8 223.1 L400.9 287 L289.3 265.8 L349.6 315.7 L294 292.7 L299.1 330.4 L237.1 301.7 L246.7 404.5 L224.3 327.4 L194.8 404.3 L171.3 320.4 L160.8 390.5 L156.3 295.4 L110.6 361 L118.4 276.4 L47.8 313.6 L84.7 259 L2.1 287 L88.7 232.5 L8.5 230.9 L96.9 208.4 L-9.6 178.2 L82.5 179 L48.1 126 L108.5 142.1 L25.2 58 L125.6 117.7 L84 41.2 L146.3 92.6 L159.7 32.6 L195 90.7 L187.9 48.7 L223.1 89.7 L250.3 42.2 L242.8 83 L280.2 72.8 L296.3 108.1 L366.1 80.6 L298.3 119.4 L398.5 99 L322.5 161.1 L395.4 189.4 Z"/></svg>
           <span class="tcard__letter" aria-hidden="true">C</span>
           <p class="tcard__team">Team C</p><span class="tcard__arm" aria-hidden="true">C</span>
-          <div class="tcard__band"><p class="tcard__role">Captain</p><p class="tcard__name">Captain Name</p></div>
+          <div class="tcard__band"><p class="tcard__role">Captain</p><p class="tcard__name">C</p></div>
         </div></div>
         <div class="squad"><p class="squad__k">Squad</p><ul class="squad__list"><li class="squad__tba">Squad list coming soon</li></ul></div>
       </article>
-      <article class="tcard tcard--d" aria-label="Team D, captain name to be announced">
+      <article class="tcard tcard--d" aria-label="Team D, captain D">
         <div class="tcard__deal"><div class="tcard__face">
           <div class="fx" aria-hidden="true"><div class="speed"></div><div class="dots"></div></div>
           <svg class="tcard__burst" viewBox="0 0 400 400" aria-hidden="true"><path d="M306.8 193.2 L377.7 211.3 L325.8 223.1 L400.9 287 L289.3 265.8 L349.6 315.7 L294 292.7 L299.1 330.4 L237.1 301.7 L246.7 404.5 L224.3 327.4 L194.8 404.3 L171.3 320.4 L160.8 390.5 L156.3 295.4 L110.6 361 L118.4 276.4 L47.8 313.6 L84.7 259 L2.1 287 L88.7 232.5 L8.5 230.9 L96.9 208.4 L-9.6 178.2 L82.5 179 L48.1 126 L108.5 142.1 L25.2 58 L125.6 117.7 L84 41.2 L146.3 92.6 L159.7 32.6 L195 90.7 L187.9 48.7 L223.1 89.7 L250.3 42.2 L242.8 83 L280.2 72.8 L296.3 108.1 L366.1 80.6 L298.3 119.4 L398.5 99 L322.5 161.1 L395.4 189.4 Z"/></svg>
           <span class="tcard__letter" aria-hidden="true">D</span>
           <p class="tcard__team">Team D</p><span class="tcard__arm" aria-hidden="true">C</span>
-          <div class="tcard__band"><p class="tcard__role">Captain</p><p class="tcard__name">Captain Name</p></div>
+          <div class="tcard__band"><p class="tcard__role">Captain</p><p class="tcard__name">D</p></div>
         </div></div>
         <div class="squad"><p class="squad__k">Squad</p><ul class="squad__list"><li class="squad__tba">Squad list coming soon</li></ul></div>
       </article>
@@ -2206,22 +2188,26 @@ intro.from(".poster", {
   const sportsRules = {
     football: {
       title: "Football",
-      format: "RULES PENDING",
+      format: "5-A-SIDE • KNOCKOUT",
       items: [
-        "The rulebook marks Football rules as pending.",
-        "Match format, team size, duration and scoring rules will be added once confirmed."
+        "Four teams compete in a knockout tournament: two semifinals, a third-place playoff and a final.",
+        "Each team fields 5 players at a time, including one goalkeeper. Rolling substitutions are allowed.",
+        "Each match is 15 minutes long; the team scoring the most goals wins.",
+        "If a knockout match is tied, each team takes 3 penalty kicks. If still tied, continue sudden death until one team wins.",
+        "No offside. No sliding tackles, pushing, tripping or dangerous contact; play safely."
       ]
     },
     badminton: {
       title: "Badminton",
       format: "KNOCKOUT • DOUBLES PAIRS",
       items: [
-        "Four teams compete in a knockout tournament.",
+        "Four teams compete in a knockout tournament. The winners of the semifinals advance to the final; the losing teams play for third place.",
         "Each team nominates two doubles pairs: Pair 1 and Pair 2.",
-        "The winners of the two semifinals advance to the final.",
-        "Every rally earns a point (rally-point scoring).",
-        "Players change ends when either team reaches 11 points.",
-        "Standard badminton rules apply. The rulebook does not specify the match target score."
+        "Standard rally-point scoring applies: every rally earns a point.",
+        "A standard match is best of 3 games, with each game played to 21 points.",
+        "Scoring: At 20–20, a pair must lead by 2 points to win. If the score reaches 29–29, the next point wins the game.",
+        "Players change ends after the first game and after the second game if a third is needed. In the third game, they change ends when a side first reaches 11 points.",
+        "Standard badminton service and fault rules apply."
       ]
     },
     airhockey: {
@@ -2258,16 +2244,15 @@ intro.from(".poster", {
         "Add all four players' scores to calculate the team's total.",
         "The team with the higher combined score advances.",
         "Standard ten-pin scoring applies, including strikes, spares and bonus deliveries in the 10th frame.",
-        "If team totals tie, compare the highest individual score from each team. The rulebook does not state a further tie-break if those scores also tie."
+        "If team totals tie, compare the highest individual score from each team."
       ]
     }
   };
 
-  /* Populate roster lists and make the entire visible team card clickable. */
+  /* Populate roster lists and make each team label a real button. */
   document.querySelectorAll(".tcard").forEach((card, index) => {
     const squad = card.querySelector(".squad");
     const list = card.querySelector(".squad__list");
-    const deal = card.querySelector(".tcard__deal");
     const teamLabel = card.querySelector(".tcard__team");
 
     if (list && rosters[index]) {
@@ -2279,33 +2264,27 @@ intro.from(".poster", {
       });
     }
 
-    if (!squad || !deal || !teamLabel) return;
+    if (!squad || !teamLabel) return;
+
+    let button = teamLabel;
+    if (teamLabel.tagName.toLowerCase() !== "button") {
+      button = document.createElement("button");
+      button.type = "button";
+      button.className = teamLabel.className;
+      button.textContent = teamLabel.textContent.trim();
+      teamLabel.replaceWith(button);
+    }
 
     if (!squad.id) squad.id = `team-roster-${index + 1}`;
-    deal.tabIndex = 0;
-    deal.setAttribute("role", "button");
-    deal.setAttribute("aria-controls", squad.id);
-    deal.setAttribute("aria-expanded", card.classList.contains("squad-open") ? "true" : "false");
-    deal.setAttribute("aria-label", `${teamLabel.textContent.trim()} roster. Show or hide team members`);
+    button.setAttribute("aria-controls", squad.id);
+    button.setAttribute("aria-expanded", card.classList.contains("squad-open") ? "true" : "false");
 
-    if (deal.dataset.rosterWired !== "true") {
-      deal.dataset.rosterWired = "true";
-
-      const toggleRoster = () => {
+    if (button.dataset.rosterWired !== "true") {
+      button.dataset.rosterWired = "true";
+      button.addEventListener("click", event => {
+        event.stopPropagation();
         const expanded = card.classList.toggle("squad-open");
-        deal.setAttribute("aria-expanded", String(expanded));
-      };
-
-      deal.addEventListener("click", event => {
-        event.preventDefault();
-        toggleRoster();
-      });
-
-      deal.addEventListener("keydown", event => {
-        if (event.key === "Enter" || event.key === " ") {
-          event.preventDefault();
-          toggleRoster();
-        }
+        button.setAttribute("aria-expanded", String(expanded));
       });
     }
   });
