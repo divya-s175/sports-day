@@ -1459,6 +1459,357 @@ a{color:inherit}
 }
 </style>
 
+<style>
+/* TEAM CARDS — championship crests meets draft-night trading cards */
+.tcard--a, .tcard--c {
+  --team-accent: #FF796F;
+  --team-ink: #171D2B;
+  --team-accent-rgb: 255, 121, 111;
+}
+.tcard--b, .tcard--d {
+  --team-accent: #246BCE;
+  --team-ink: #FFFFFF;
+  --team-accent-rgb: 36, 107, 206;
+}
+
+.tcard__deal[role="button"] {
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+.tcard__deal[role="button"]:focus-visible .tcard__face {
+  outline: 3px solid #FFF7F3;
+  outline-offset: 6px;
+}
+
+.tcard__face {
+  position: relative;
+  isolation: isolate;
+  background:
+    linear-gradient(135deg, transparent 0 56%, rgba(var(--team-accent-rgb), .18) 56% 69%, transparent 69% 100%),
+    linear-gradient(28deg, transparent 0 15%, rgba(255,247,243,.045) 15% 28%, transparent 28% 100%),
+    #171D2B !important;
+  border: 2px solid var(--team-accent) !important;
+  border-radius: 8px !important;
+  box-shadow: 7px 7px 0 var(--team-accent), inset 0 0 0 4px rgba(255,247,243,.07) !important;
+  overflow: hidden;
+  transition: box-shadow .22s ease, border-color .22s ease;
+}
+
+/* Reposition the original shield so there is room for an editorial header. */
+.tcard__face::before,
+.tcard__face::after {
+  top: 16%;
+  left: 50%;
+  transform: translateX(-50%);
+  aspect-ratio: 100 / 110;
+  clip-path: polygon(5% 0,95% 0,88% 62%,50% 100%,12% 62%);
+}
+.tcard__face::before {
+  width: 49%;
+  background: #FFF7F3;
+  z-index: 1;
+}
+.tcard__face::after {
+  top: calc(16% + 4px);
+  width: calc(49% - 8px);
+  background: var(--team-accent);
+  z-index: 2;
+}
+
+/* Draft-card edition label */
+.tcard__edition {
+  position: absolute;
+  z-index: 5;
+  top: 5%;
+  left: 7%;
+  right: 25%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 5px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid rgba(255,247,243,.26);
+  color: #FFF7F3;
+  font-family: var(--f-sans);
+  font-size: clamp(7px, .78vw, 10px);
+  line-height: 1.2;
+  font-weight: 900;
+  letter-spacing: .12em;
+  white-space: nowrap;
+}
+.tcard__edition-year { color: var(--team-accent); }
+
+/* Small numbered team tab, replacing the old placeholder armband */
+.tcard__arm {
+  display: flex !important;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 2px;
+  top: 4.2% !important;
+  right: 6% !important;
+  width: 43px !important;
+  height: 34px !important;
+  aspect-ratio: auto !important;
+  padding: 3px 4px;
+  border: 1px solid var(--team-accent) !important;
+  border-radius: 4px !important;
+  background: var(--team-accent) !important;
+  color: var(--team-ink) !important;
+  box-shadow: 3px 3px 0 rgba(0,0,0,.22) !important;
+  font-size: 0 !important;
+  line-height: 1;
+  z-index: 6;
+}
+.tcard__arm::before {
+  content: "TEAM";
+  font: 900 7px/1 var(--f-sans);
+  letter-spacing: .12em;
+}
+.tcard__arm::after {
+  content: "01";
+  font: 900 13px/1 var(--f-sans);
+  letter-spacing: .04em;
+}
+.tcard--b .tcard__arm::after { content: "02"; }
+.tcard--c .tcard__arm::after { content: "03"; }
+.tcard--d .tcard__arm::after { content: "04"; }
+
+.tcard__letter {
+  top: 37% !important;
+  left: 50% !important;
+  translate: -50% -50% !important;
+  rotate: 0deg !important;
+  font-size: 40cqw !important;
+  line-height: 1 !important;
+  color: var(--team-ink) !important;
+  -webkit-text-stroke: 0 !important;
+  z-index: 3;
+  text-shadow: 0 1px 0 rgba(255,247,243,.2);
+}
+
+/* Team title doubles as the roster prompt */
+.tcard__team {
+  position: absolute !important;
+  display: block;
+  left: 4% !important;
+  right: 4% !important;
+  top: 60% !important;
+  width: 92%;
+  margin: 0;
+  padding: 0 4px 24px !important;
+  border: 0;
+  background: transparent;
+  text-align: center;
+  color: #FFF7F3 !important;
+  font-family: var(--f-sans) !important;
+  font-size: clamp(17px, 1.75vw, 23px) !important;
+  font-weight: 950 !important;
+  letter-spacing: .14em !important;
+  line-height: 1.05;
+  text-transform: uppercase;
+  cursor: pointer;
+  z-index: 5;
+}
+.tcard__team::after {
+  content: "VIEW SQUAD  +";
+  display: block;
+  margin-top: 8px;
+  color: var(--team-accent);
+  font-family: var(--f-sans);
+  font-size: clamp(8px, .85vw, 10px);
+  font-weight: 900;
+  letter-spacing: .16em;
+}
+.tcard.squad-open .tcard__team::after { content: "HIDE SQUAD  −"; }
+
+/* Bright graphic captain strip */
+.tcard__band {
+  left: 5% !important;
+  right: 5% !important;
+  bottom: 4% !important;
+  padding: 9px 8px 8px !important;
+  background: var(--team-accent) !important;
+  color: var(--team-ink) !important;
+  text-align: center;
+  transform: none !important;
+  clip-path: polygon(0 0,100% 0,94% 100%,6% 100%);
+  box-shadow: none !important;
+  border-top: 2px solid rgba(255,247,243,.8);
+  z-index: 5;
+}
+.tcard__role {
+  color: var(--team-ink) !important;
+  font-family: var(--f-sans) !important;
+  font-size: 9px !important;
+  font-weight: 950 !important;
+  letter-spacing: .2em !important;
+}
+.tcard__name {
+  margin-top: 3px;
+  color: var(--team-ink) !important;
+  font-family: var(--f-sans) !important;
+  font-size: clamp(13px, 1.35vw, 18px) !important;
+  font-weight: 950 !important;
+  letter-spacing: .01em;
+  line-height: 1.1 !important;
+  text-transform: uppercase;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.tcard .squad {
+  margin-top: 24px;
+  padding: 14px 14px 16px;
+  border-top: 3px solid var(--team-accent) !important;
+  border-radius: 0 0 8px 8px;
+  background: #FFF7F3;
+  box-shadow: 4px 4px 0 rgba(23,29,43,.1);
+}
+.tcard .squad__k {
+  margin: 0;
+  color: #171D2B !important;
+  font-family: var(--f-sans);
+  font-size: 11px;
+  font-weight: 950;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+}
+.tcard .squad__list {
+  margin-top: 10px;
+}
+.tcard .squad__list li {
+  color: #171D2B;
+  font-family: var(--f-sans);
+  font-size: 13px;
+  line-height: 1.35;
+  overflow-wrap: anywhere;
+}
+
+@media (hover:hover) {
+  .tcard:hover .tcard__deal .tcard__face {
+    box-shadow: 9px 9px 0 var(--team-accent), inset 0 0 0 4px rgba(255,247,243,.1) !important;
+  }
+  .tcard:hover .tcard__edition {
+    border-bottom-color: var(--team-accent);
+  }
+}
+@media (max-width: 680px) {
+  .tcard__edition { font-size: 8px; }
+  .tcard__arm { width: 39px !important; height: 32px !important; }
+  .tcard__team { font-size: clamp(16px, 4vw, 21px) !important; }
+  .tcard__team::after { font-size: 9px; }
+  .tcard__name { font-size: clamp(12px, 3vw, 16px) !important; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .tcard__face { transition: none; }
+}
+</style>
+
+
+<style>
+/* FINAL TEAM CARD POLISH — less repetition, more character */
+.tcard__edition {
+  right: 7% !important;
+  padding-bottom: 7px !important;
+  letter-spacing: .14em !important;
+  border-bottom-width: 2px !important;
+}
+
+/* Let the shield letter do the identifying; the line below is just the action. */
+.tcard__team {
+  top: 61% !important;
+  padding-bottom: 20px !important;
+  font-size: clamp(10px, 1vw, 12px) !important;
+  letter-spacing: .18em !important;
+  line-height: 1.2 !important;
+  color: rgba(255,247,243,.88) !important;
+}
+.tcard__team::before {
+  content: "VIEW SQUAD";
+  display: inline-block;
+  transition: color .2s ease, letter-spacing .2s ease;
+}
+.tcard__team::after {
+  content: "+" !important;
+  display: inline-block !important;
+  margin: 0 0 0 8px !important;
+  color: var(--team-accent) !important;
+  font-size: 1.35em !important;
+  line-height: .8 !important;
+  vertical-align: -1px;
+}
+.tcard.squad-open .tcard__team::before { content: "HIDE SQUAD"; }
+.tcard.squad-open .tcard__team::after { content: "−" !important; }
+
+/* Bring back the burst as a quiet graphic texture behind the crest. */
+.tcard__burst {
+  display: block !important;
+  position: absolute;
+  z-index: 0;
+  left: 50%;
+  top: 48%;
+  width: 104%;
+  max-width: none;
+  transform: translate(-50%, -50%) rotate(-8deg);
+  fill: rgba(255,247,243,.055) !important;
+  stroke: var(--team-accent) !important;
+  stroke-width: 2.5 !important;
+  opacity: .58;
+  pointer-events: none;
+  animation: crestDrift 9s ease-in-out infinite;
+}
+.tcard:nth-child(even) .tcard__burst { animation-delay: -4.5s; }
+
+/* Stronger layered print finish; the existing pointer tilt adds the 3D interaction. */
+.tcard__face {
+  background:
+    radial-gradient(ellipse at 50% 35%, rgba(var(--team-accent-rgb), .23), transparent 45%),
+    linear-gradient(135deg, transparent 0 51%, rgba(var(--team-accent-rgb), .22) 51% 63%, transparent 63% 100%),
+    linear-gradient(28deg, transparent 0 14%, rgba(255,247,243,.07) 14% 26%, transparent 26% 100%),
+    #171D2B !important;
+  box-shadow: 7px 7px 0 var(--team-accent), inset 0 0 0 4px rgba(255,247,243,.08), inset 0 0 28px rgba(0,0,0,.16) !important;
+}
+.tcard__face::before {
+  filter: drop-shadow(0 5px 0 rgba(0,0,0,.17));
+}
+.tcard__face::after {
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.18);
+}
+.tcard__letter {
+  text-shadow: 0 3px 0 rgba(0,0,0,.12), 0 0 18px rgba(255,255,255,.12) !important;
+}
+.tcard__band {
+  box-shadow: 0 5px 0 rgba(0,0,0,.22) !important;
+  transition: transform .22s ease, filter .22s ease;
+}
+.tcard__deal[role="button"]:focus-visible .tcard__face {
+  outline: 3px solid var(--team-accent);
+  outline-offset: 5px;
+}
+@media (hover: hover) {
+  .tcard:hover .tcard__band {
+    transform: translateY(-3px) !important;
+    filter: saturate(1.12);
+  }
+  .tcard:hover .tcard__team::before { color: #FFF7F3; letter-spacing: .22em; }
+  .tcard:hover .tcard__face {
+    border-color: #FFF7F3 !important;
+    box-shadow: 8px 8px 0 var(--team-accent), 0 0 24px rgba(var(--team-accent-rgb), .22), inset 0 0 0 4px rgba(255,247,243,.11) !important;
+  }
+}
+@keyframes crestDrift {
+  0%, 100% { transform: translate(-50%, -50%) rotate(-8deg) scale(.96); opacity: .42; }
+  50% { transform: translate(-50%, -50%) rotate(2deg) scale(1.025); opacity: .66; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .tcard__burst { animation: none !important; }
+  .tcard__band, .tcard__team::before { transition: none !important; }
+}
+</style>
+
 </head>
 <body>
 <div class="progress" aria-hidden="true"><div class="progress__bar"></div></div>
@@ -1650,43 +2001,47 @@ a{color:inherit}
   <div class="wrap">
     <div class="sec-head"><h2 class="h-brush ink" id="teams-h">Teams &amp; captains</h2><p class="script">Bring your A-game.</p></div>
     <div class="deck">
-      <article class="tcard tcard--a" aria-label="Team A, captain A">
+      <article class="tcard tcard--a" aria-label="Team A, captain name to be announced">
         <div class="tcard__deal"><div class="tcard__face">
           <div class="fx" aria-hidden="true"><div class="speed"></div><div class="dots"></div></div>
           <svg class="tcard__burst" viewBox="0 0 400 400" aria-hidden="true"><path d="M306.8 193.2 L377.7 211.3 L325.8 223.1 L400.9 287 L289.3 265.8 L349.6 315.7 L294 292.7 L299.1 330.4 L237.1 301.7 L246.7 404.5 L224.3 327.4 L194.8 404.3 L171.3 320.4 L160.8 390.5 L156.3 295.4 L110.6 361 L118.4 276.4 L47.8 313.6 L84.7 259 L2.1 287 L88.7 232.5 L8.5 230.9 L96.9 208.4 L-9.6 178.2 L82.5 179 L48.1 126 L108.5 142.1 L25.2 58 L125.6 117.7 L84 41.2 L146.3 92.6 L159.7 32.6 L195 90.7 L187.9 48.7 L223.1 89.7 L250.3 42.2 L242.8 83 L280.2 72.8 L296.3 108.1 L366.1 80.6 L298.3 119.4 L398.5 99 L322.5 161.1 L395.4 189.4 Z"/></svg>
+          <div class="tcard__edition" aria-hidden="true"><span class="tcard__edition-label">AMEX SPORTS DAY</span><span class="tcard__edition-year">2026</span></div>
           <span class="tcard__letter" aria-hidden="true">A</span>
-          <p class="tcard__team">Team A</p><span class="tcard__arm" aria-hidden="true">C</span>
-          <div class="tcard__band"><p class="tcard__role">Captain</p><p class="tcard__name">A</p></div>
+          <p class="tcard__team" aria-hidden="true"></p>
+          <div class="tcard__band"><p class="tcard__role">Captain</p><p class="tcard__name">Captain Name</p></div>
         </div></div>
         <div class="squad"><p class="squad__k">Squad</p><ul class="squad__list"><li class="squad__tba">Loading roster…</li></ul></div>
       </article>
-      <article class="tcard tcard--b" aria-label="Team B, captain B">
+      <article class="tcard tcard--b" aria-label="Team B, captain name to be announced">
         <div class="tcard__deal"><div class="tcard__face">
           <div class="fx" aria-hidden="true"><div class="speed"></div><div class="dots"></div></div>
           <svg class="tcard__burst" viewBox="0 0 400 400" aria-hidden="true"><path d="M306.8 193.2 L377.7 211.3 L325.8 223.1 L400.9 287 L289.3 265.8 L349.6 315.7 L294 292.7 L299.1 330.4 L237.1 301.7 L246.7 404.5 L224.3 327.4 L194.8 404.3 L171.3 320.4 L160.8 390.5 L156.3 295.4 L110.6 361 L118.4 276.4 L47.8 313.6 L84.7 259 L2.1 287 L88.7 232.5 L8.5 230.9 L96.9 208.4 L-9.6 178.2 L82.5 179 L48.1 126 L108.5 142.1 L25.2 58 L125.6 117.7 L84 41.2 L146.3 92.6 L159.7 32.6 L195 90.7 L187.9 48.7 L223.1 89.7 L250.3 42.2 L242.8 83 L280.2 72.8 L296.3 108.1 L366.1 80.6 L298.3 119.4 L398.5 99 L322.5 161.1 L395.4 189.4 Z"/></svg>
+          <div class="tcard__edition" aria-hidden="true"><span class="tcard__edition-label">AMEX SPORTS DAY</span><span class="tcard__edition-year">2026</span></div>
           <span class="tcard__letter" aria-hidden="true">B</span>
-          <p class="tcard__team">Team B</p><span class="tcard__arm" aria-hidden="true">C</span>
-          <div class="tcard__band"><p class="tcard__role">Captain</p><p class="tcard__name">B</p></div>
+          <p class="tcard__team" aria-hidden="true"></p>
+          <div class="tcard__band"><p class="tcard__role">Captain</p><p class="tcard__name">Captain Name</p></div>
         </div></div>
         <div class="squad"><p class="squad__k">Squad</p><ul class="squad__list"><li class="squad__tba">Squad list coming soon</li></ul></div>
       </article>
-      <article class="tcard tcard--c" aria-label="Team C, captain C">
+      <article class="tcard tcard--c" aria-label="Team C, captain name to be announced">
         <div class="tcard__deal"><div class="tcard__face">
           <div class="fx" aria-hidden="true"><div class="speed"></div><div class="dots"></div></div>
           <svg class="tcard__burst" viewBox="0 0 400 400" aria-hidden="true"><path d="M306.8 193.2 L377.7 211.3 L325.8 223.1 L400.9 287 L289.3 265.8 L349.6 315.7 L294 292.7 L299.1 330.4 L237.1 301.7 L246.7 404.5 L224.3 327.4 L194.8 404.3 L171.3 320.4 L160.8 390.5 L156.3 295.4 L110.6 361 L118.4 276.4 L47.8 313.6 L84.7 259 L2.1 287 L88.7 232.5 L8.5 230.9 L96.9 208.4 L-9.6 178.2 L82.5 179 L48.1 126 L108.5 142.1 L25.2 58 L125.6 117.7 L84 41.2 L146.3 92.6 L159.7 32.6 L195 90.7 L187.9 48.7 L223.1 89.7 L250.3 42.2 L242.8 83 L280.2 72.8 L296.3 108.1 L366.1 80.6 L298.3 119.4 L398.5 99 L322.5 161.1 L395.4 189.4 Z"/></svg>
+          <div class="tcard__edition" aria-hidden="true"><span class="tcard__edition-label">AMEX SPORTS DAY</span><span class="tcard__edition-year">2026</span></div>
           <span class="tcard__letter" aria-hidden="true">C</span>
-          <p class="tcard__team">Team C</p><span class="tcard__arm" aria-hidden="true">C</span>
-          <div class="tcard__band"><p class="tcard__role">Captain</p><p class="tcard__name">C</p></div>
+          <p class="tcard__team" aria-hidden="true"></p>
+          <div class="tcard__band"><p class="tcard__role">Captain</p><p class="tcard__name">Captain Name</p></div>
         </div></div>
         <div class="squad"><p class="squad__k">Squad</p><ul class="squad__list"><li class="squad__tba">Squad list coming soon</li></ul></div>
       </article>
-      <article class="tcard tcard--d" aria-label="Team D, captain D">
+      <article class="tcard tcard--d" aria-label="Team D, captain name to be announced">
         <div class="tcard__deal"><div class="tcard__face">
           <div class="fx" aria-hidden="true"><div class="speed"></div><div class="dots"></div></div>
           <svg class="tcard__burst" viewBox="0 0 400 400" aria-hidden="true"><path d="M306.8 193.2 L377.7 211.3 L325.8 223.1 L400.9 287 L289.3 265.8 L349.6 315.7 L294 292.7 L299.1 330.4 L237.1 301.7 L246.7 404.5 L224.3 327.4 L194.8 404.3 L171.3 320.4 L160.8 390.5 L156.3 295.4 L110.6 361 L118.4 276.4 L47.8 313.6 L84.7 259 L2.1 287 L88.7 232.5 L8.5 230.9 L96.9 208.4 L-9.6 178.2 L82.5 179 L48.1 126 L108.5 142.1 L25.2 58 L125.6 117.7 L84 41.2 L146.3 92.6 L159.7 32.6 L195 90.7 L187.9 48.7 L223.1 89.7 L250.3 42.2 L242.8 83 L280.2 72.8 L296.3 108.1 L366.1 80.6 L298.3 119.4 L398.5 99 L322.5 161.1 L395.4 189.4 Z"/></svg>
+          <div class="tcard__edition" aria-hidden="true"><span class="tcard__edition-label">AMEX SPORTS DAY</span><span class="tcard__edition-year">2026</span></div>
           <span class="tcard__letter" aria-hidden="true">D</span>
-          <p class="tcard__team">Team D</p><span class="tcard__arm" aria-hidden="true">C</span>
-          <div class="tcard__band"><p class="tcard__role">Captain</p><p class="tcard__name">D</p></div>
+          <p class="tcard__team" aria-hidden="true"></p>
+          <div class="tcard__band"><p class="tcard__role">Captain</p><p class="tcard__name">Captain Name</p></div>
         </div></div>
         <div class="squad"><p class="squad__k">Squad</p><ul class="squad__list"><li class="squad__tba">Squad list coming soon</li></ul></div>
       </article>
@@ -2249,11 +2604,13 @@ intro.from(".poster", {
     }
   };
 
-  /* Populate roster lists and make each team label a real button. */
+  /* Populate roster lists and make the entire visible team card clickable. */
   document.querySelectorAll(".tcard").forEach((card, index) => {
     const squad = card.querySelector(".squad");
     const list = card.querySelector(".squad__list");
+    const deal = card.querySelector(".tcard__deal");
     const teamLabel = card.querySelector(".tcard__team");
+    const teamLetter = card.querySelector(".tcard__letter")?.textContent.trim();
 
     if (list && rosters[index]) {
       list.replaceChildren();
@@ -2264,27 +2621,33 @@ intro.from(".poster", {
       });
     }
 
-    if (!squad || !teamLabel) return;
-
-    let button = teamLabel;
-    if (teamLabel.tagName.toLowerCase() !== "button") {
-      button = document.createElement("button");
-      button.type = "button";
-      button.className = teamLabel.className;
-      button.textContent = teamLabel.textContent.trim();
-      teamLabel.replaceWith(button);
-    }
+    if (!squad || !deal || !teamLabel) return;
 
     if (!squad.id) squad.id = `team-roster-${index + 1}`;
-    button.setAttribute("aria-controls", squad.id);
-    button.setAttribute("aria-expanded", card.classList.contains("squad-open") ? "true" : "false");
+    deal.tabIndex = 0;
+    deal.setAttribute("role", "button");
+    deal.setAttribute("aria-controls", squad.id);
+    deal.setAttribute("aria-expanded", card.classList.contains("squad-open") ? "true" : "false");
+    deal.setAttribute("aria-label", `Team ${teamLetter || index + 1} roster. Show or hide team members`);
 
-    if (button.dataset.rosterWired !== "true") {
-      button.dataset.rosterWired = "true";
-      button.addEventListener("click", event => {
-        event.stopPropagation();
+    if (deal.dataset.rosterWired !== "true") {
+      deal.dataset.rosterWired = "true";
+
+      const toggleRoster = () => {
         const expanded = card.classList.toggle("squad-open");
-        button.setAttribute("aria-expanded", String(expanded));
+        deal.setAttribute("aria-expanded", String(expanded));
+      };
+
+      deal.addEventListener("click", event => {
+        event.preventDefault();
+        toggleRoster();
+      });
+
+      deal.addEventListener("keydown", event => {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          toggleRoster();
+        }
       });
     }
   });
