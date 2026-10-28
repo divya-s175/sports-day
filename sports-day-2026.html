@@ -2540,30 +2540,26 @@ intro.from(".poster", {
     ["Deepthi Sirra", "Nikhil", "Jitender Kumar Dass", "Vivek Banerjee", "Karthikeya", "Saurabh", "Tanmay", "Vasudevan", "Wasif Hassan", "Kavisha", "Jiya", "Lakshmi Priyadharshini", "Sanjana", "Vaibhavi", "Simran"]
   ];
 
-  /* Simplified from the uploaded Sports Day 2026 rulebook. */
+  /* Sports Day 2026 game rules. */
   const sportsRules = {
     football: {
       title: "Football",
-      format: "5-A-SIDE • KNOCKOUT",
+      format: "6 PLAYERS • KNOCKOUT",
       items: [
-        "Four teams compete in a knockout tournament: two semifinals, a third-place playoff and a final.",
-        "Each team fields 5 players at a time, including one goalkeeper. Rolling substitutions are allowed.",
-        "Each match is 15 minutes long; the team scoring the most goals wins.",
-        "If a knockout match is tied, each team takes 3 penalty kicks. If still tied, continue sudden death until one team wins.",
-        "No offside. No sliding tackles, pushing, tripping or dangerous contact; play safely."
+        "Each team fields 6 players, including the goalkeeper, with at least one mandatory female player.",
+        "Each match consists of two halves of 10 minutes each. The team scoring the most goals wins.",
+        "Pushing, holding and sliding tackles are not allowed. There is no offside rule.",
+        "If the match is tied, each team takes 3 penalty kicks. If scores remain tied, the match proceeds to sudden death."
       ]
     },
     badminton: {
       title: "Badminton",
-      format: "KNOCKOUT • DOUBLES PAIRS",
+      format: "FOUR FORMATS • KNOCKOUT",
       items: [
-        "Four teams compete in a knockout tournament. The winners of the semifinals advance to the final; the losing teams play for third place.",
-        "Each team nominates two doubles pairs: Pair 1 and Pair 2.",
-        "Standard rally-point scoring applies: every rally earns a point.",
-        "A standard match is best of 3 games, with each game played to 21 points.",
-        "Scoring: At 20–20, a pair must lead by 2 points to win. If the score reaches 29–29, the next point wins the game.",
-        "Players change ends after the first game and after the second game if a third is needed. In the third game, they change ends when a side first reaches 11 points.",
-        "Standard badminton service and fault rules apply."
+        "The competition will feature four formats: Men's Singles, Women's Singles, Mixed Doubles and Men's Doubles.",
+        "Matches are played to 15 points using rally-point scoring.",
+        "Winners of the semifinals advance to the final, while the other teams or players compete for 3rd place.",
+        "Standard badminton rules apply."
       ]
     },
     airhockey: {
@@ -2593,18 +2589,16 @@ intro.from(".poster", {
     },
     bowling: {
       title: "Bowling",
-      format: "4 PLAYERS PER TEAM",
+      format: "6 PLAYERS PER TEAM",
       items: [
-        "Each team nominates 4 players.",
+        "Each team has 6 players.",
         "Each player bowls one complete 10-frame game per knockout round.",
-        "Add all four players' scores to calculate the team's total.",
-        "The team with the higher combined score advances.",
-        "Standard ten-pin scoring applies, including strikes, spares and bonus deliveries in the 10th frame.",
-        "If team totals tie, compare the highest individual score from each team."
+        "Individual scores are added together to calculate the team's total score.",
+        "Teams are ranked based on their combined scores.",
+        "Standard ten-pin scoring applies, including strikes, spares and bonus deliveries in the 10th frame."
       ]
     }
   };
-
   /* Populate roster lists and make the entire visible team card clickable. */
   document.querySelectorAll(".tcard").forEach((card, index) => {
     const squad = card.querySelector(".squad");
@@ -2670,7 +2664,7 @@ intro.from(".poster", {
       </div>
       <hr class="game-rules-divider">
       <p class="game-rules-message" id="game-rules-message"></p>
-      <p class="game-rules-note">The referee's decision is final.</p>
+      <p class="game-rules-note">The referee's decision will be final.</p>
     </section>`;
   document.body.appendChild(overlay);
 
@@ -2694,7 +2688,7 @@ intro.from(".poster", {
     format.textContent = data.format;
     message.textContent = data.items.map(item => "• " + item).join("\n\n");
     message.style.whiteSpace = "pre-line";
-    note.textContent = "The referee's decision is final.";
+    note.textContent = "The referee's decision will be final.";
     previousOverflow = document.body.style.overflow;
     overlay.hidden = false;
     document.body.style.overflow = "hidden";
